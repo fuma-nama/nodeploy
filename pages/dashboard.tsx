@@ -9,9 +9,9 @@ export default function Page() {
         <main>
             <Navbar />
             <div className="max-w-screen-2xl mx-auto flex flex-col gap-5 px-4 md:px-14 py-14">
-                <div className="flex flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-3 sm:justify-between">
                     <h1 className="text-4xl font-bold">My Project</h1>
-                    <div className="flex flex-row gap-3 ml-auto">
+                    <div className="flex flex-row gap-3">
                         <button className="text-primary-foreground bg-primary px-4 py-2 rounded-xl font-semibold text-sm">
                             Visit
                         </button>
@@ -141,7 +141,7 @@ function Navbar() {
     return (
         <nav className="w-full border-b-2 border-slate-800 bg-background overflow-x-auto">
             <div className="max-w-screen-2xl mx-auto w-full flex flex-row h-14 items-center gap-7 px-4 md:px-14">
-                <div className="flex flex-row gap-2 items-center">
+                <div className="flex flex-row gap-2 items-center flex-shrink-0">
                     <Image
                         alt="avatar"
                         src="https://i.pravatar.cc/100?img=3"
@@ -167,7 +167,7 @@ function Navbar() {
                     Settings
                 </Link>
 
-                <MoonStarIcon className="ml-auto text-muted-foreground" />
+                <MoonStarIcon className="ml-auto text-muted-foreground flex-shrink-0" />
             </div>
         </nav>
     );
