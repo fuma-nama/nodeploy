@@ -100,31 +100,33 @@ export default function Home() {
                     promoting your project on Reddit
                 </p>
 
-                <div className="w-full max-w-screen-lg grid grid-cols-1 lg:grid-cols-2 mt-16 text-start gap-x-10 gap-y-32">
-                    <div className="flex flex-col h-fit divide-y-2 divide-border bg-secondary rounded-xl relative">
-                        {comments.map((comment, i) => (
-                            <div
-                                key={i}
-                                className="p-5 flex flex-row gap-3 items-start"
-                            >
-                                <Image
-                                    alt="avatar"
-                                    src={comment.avatar}
-                                    width={40}
-                                    height={40}
-                                    className="rounded-full"
-                                />
-                                <div>
-                                    <h4 className="font-semibold">
-                                        {comment.user}
-                                    </h4>
-                                    <p className="text-sm text-muted-foreground">
-                                        {comment.message}
-                                    </p>
+                <div className="w-full max-w-screen-lg grid grid-cols-1 md:grid-cols-2 mt-16 text-start gap-10">
+                    <div className="flex flex-col relative">
+                        <div className="flex flex-col divide-y-2 divide-border bg-secondary rounded-xl mr-10">
+                            {comments.map((comment, i) => (
+                                <div
+                                    key={i}
+                                    className="p-5 flex flex-row gap-3 items-start"
+                                >
+                                    <Image
+                                        alt="avatar"
+                                        src={comment.avatar}
+                                        width={40}
+                                        height={40}
+                                        className="rounded-full"
+                                    />
+                                    <div>
+                                        <h4 className="font-semibold">
+                                            {comment.user}
+                                        </h4>
+                                        <p className="text-sm text-muted-foreground">
+                                            {comment.message}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                        <div className="absolute -bottom-20 -right-5 flex flex-col gap-6 items-end rounded-2xl bg-popover p-6 shadow-lg shadow-blue-800/50 w-[22rem] max-w-[90%]">
+                            ))}
+                        </div>
+                        <div className="flex flex-col gap-6 items-end rounded-2xl bg-popover p-6 shadow-lg shadow-blue-800/50 w-[22rem] max-w-[90%] -mt-20 ml-auto max-md:absolute max-md:bottom-0 max-md:right-0">
                             <MailWarningIcon className="w-10 h-10 mx-auto text-blue-400" />
                             <Message>
                                 Your commit has several issues to fix
