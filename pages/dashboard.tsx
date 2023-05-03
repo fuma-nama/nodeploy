@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { MoonStarIcon } from "lucide-react";
+import { inputStyles } from "@/components/input";
 
 export default function Page() {
     return (
@@ -25,7 +26,9 @@ export default function Page() {
                     <input
                         readOnly
                         value="npx nodeploy init henry:my-project"
-                        className="border-2 border-border bg-background text-foreground p-3 rounded-xl focus-visible:outline-none text-sm font-mono w-full max-w-xl"
+                        className={inputStyles({
+                            className: "w-full max-w-xl",
+                        })}
                     />
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
