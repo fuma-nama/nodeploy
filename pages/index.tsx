@@ -5,18 +5,50 @@ import { cva } from "class-variance-authority";
 import {
     BrainCircuitIcon,
     CheckIcon,
+    CodeIcon,
     FacebookIcon,
     FigmaIcon,
     GithubIcon,
+    MailWarningIcon,
+    MessageSquareIcon,
     TwitterIcon,
+    UserXIcon,
 } from "lucide-react";
 import { inputStyles } from "@/components/input";
 const inter = Inter({ subsets: ["latin"] });
 
-const step = cva([
-    "w-10 h-10 text-lg rounded-full flex flex-col items-center justify-center bg-gradient-to-br from-purple-300 to-purple-700 font-semibold",
-    "md:w-12 md:h-12 md:text-xl",
-]);
+const step = cva(
+    [
+        "w-10 h-10 text-lg rounded-full flex flex-col items-center justify-center bg-gradient-to-br font-semibold",
+        "md:w-12 md:h-12 md:text-xl",
+    ],
+    {
+        variants: {
+            color: {
+                purple: "from-purple-300 to-purple-700",
+                blue: "from-blue-300 to-blue-700",
+            },
+        },
+    }
+);
+
+const comments = [
+    {
+        avatar: "https://i.pravatar.cc/300?img=3",
+        user: "SonMooSans",
+        message: "Oh cool! Your project seems interesting!",
+    },
+    {
+        avatar: "https://i.pravatar.cc/300?img=1",
+        user: "Anya",
+        message: "Good design, I will definitly try your app later",
+    },
+    {
+        avatar: "https://i.pravatar.cc/300?img=4",
+        user: "Dammy341",
+        message: "How do you implement real-time messaging?",
+    },
+];
 
 export default function Home() {
     return (
@@ -51,6 +83,90 @@ export default function Home() {
                 </div>
             </div>
             <Develop />
+            <div className="p-8 sm:px-14 xl:px-24 text-center flex flex-col items-center gap-3 relative">
+                <div className="flex flex-col items-center">
+                    <span className="w-1 h-[100px] bg-gradient-to-b from-blue-200/0 to-blue-400" />
+                    <p className={step({ color: "blue" })}>2</p>
+                </div>
+                <h2 className="text-blue-400 text-3xl md:text-4xl font-bold">
+                    Promotion
+                </h2>
+                <h2 className="text-4xl md:text-5xl text-foreground font-bold text-center">
+                    <span className="whitespace-nowrap">Self-Promotion</span>{" "}
+                    <span className="whitespace-nowrap">before Preview</span>
+                </h2>
+                <p className="text-muted-foreground text-lg max-w-xl">
+                    Ignore your team members and skip code previews, start
+                    promoting your project on Reddit
+                </p>
+
+                <div className="w-full max-w-screen-lg grid grid-cols-1 lg:grid-cols-2 mt-16 text-start gap-x-10 gap-y-32">
+                    <div className="flex flex-col h-fit divide-y-2 divide-border bg-secondary rounded-xl relative">
+                        {comments.map((comment, i) => (
+                            <div
+                                key={i}
+                                className="p-5 flex flex-row gap-3 items-start"
+                            >
+                                <Image
+                                    alt="avatar"
+                                    src={comment.avatar}
+                                    width={40}
+                                    height={40}
+                                    className="rounded-full"
+                                />
+                                <div>
+                                    <h4 className="font-semibold">
+                                        {comment.user}
+                                    </h4>
+                                    <p className="text-sm text-muted-foreground">
+                                        {comment.message}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                        <div className="absolute -bottom-20 -right-5 flex flex-col gap-6 items-end rounded-2xl bg-popover p-6 shadow-lg shadow-blue-800/50 w-[22rem] max-w-[90%]">
+                            <MailWarningIcon className="w-10 h-10 mx-auto text-blue-400" />
+                            <Message>
+                                Your commit has several issues to fix
+                            </Message>
+                            <Message>Let's skip code previews!</Message>
+                            <input
+                                placeholder="Message..."
+                                className={inputStyles({
+                                    className: "w-full mt-3",
+                                })}
+                            />
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
+                        <CodeIcon className="w-14 h-14 border-2 border-border shadow-lg shadow-blue-400/50 bg-secondary rounded-2xl p-3 text-blue-400" />
+                        <h3 className="text-xl font-semibold">
+                            No Code Previews
+                        </h3>
+                        <p className="text-muted-foreground max-w-xl">
+                            Stop wasting time on previewing code, just ignore
+                            all the bugs and design patterns
+                        </p>
+                        <UserXIcon className="mt-6 w-14 h-14 border-2 border-border shadow-lg shadow-blue-400/50 bg-secondary rounded-2xl p-3 text-blue-400" />
+                        <h3 className="text-xl font-semibold">
+                            No Team Members
+                        </h3>
+                        <p className="text-muted-foreground max-w-xl">
+                            Skip painful communications between team members and
+                            developers, just focus on destroying your project
+                        </p>
+                        <MessageSquareIcon className="mt-6 w-14 h-14 border-2 border-border shadow-lg shadow-blue-400/50 bg-secondary rounded-2xl p-3 text-blue-400" />
+                        <h3 className="text-xl font-semibold">
+                            No Limits for Promotion
+                        </h3>
+                        <p className="text-muted-foreground max-w-xl">
+                            Promote your project to the world and never worry
+                            about breaking subreddit rules, since you have
+                            deployed nothing
+                        </p>
+                    </div>
+                </div>
+            </div>
             <h2 className="text-2xl md:text-5xl text-foreground font-bold text-center mt-80">
                 <span className="text-transparent bg-clip-text bg-gradient-to-b from-purple-500 to-purple-200">
                     First-Class
@@ -64,13 +180,33 @@ export default function Home() {
     );
 }
 
+function Message({ children }: { children: string }) {
+    return (
+        <div className="relative">
+            <div className="p-3 bg-blue-500 rounded-2xl font-semibold text-sm">
+                {children}
+            </div>
+            <svg
+                className="absolute -bottom-[8px] -right-[8px] text-blue-500"
+                width={20}
+                height={20}
+            >
+                <path
+                    d="M10 0H0V5C0 13.2842 6.71582 20 15 20H20C14.4771 20 10 15.5229 10 10V0Z"
+                    fill="currentColor"
+                ></path>
+            </svg>
+        </div>
+    );
+}
+
 function Develop() {
     return (
         <>
             <div className="p-8 sm:px-14 xl:px-24 text-center flex flex-col items-center gap-3">
                 <div className="flex flex-col items-center">
                     <span className="w-1 h-[100px] bg-gradient-to-b from-purple-200/0 to-purple-400" />
-                    <p className={step()}>1</p>
+                    <p className={step({ color: "purple" })}>1</p>
                 </div>
                 <h2 className="text-purple-400 text-3xl md:text-4xl font-bold">
                     Develop
@@ -98,7 +234,7 @@ function Develop() {
                     </div>
                     <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
                         <h3 className="text-xl font-semibold">
-                            100% Faster by dropping your jobs
+                            100% Faster by losing your job
                         </h3>
                         <p className="text-muted-foreground max-w-xl">
                             Free developers from time-consuming jobs, your job
@@ -106,7 +242,7 @@ function Develop() {
                             on something meaningful
                         </p>
                         <h3 className="text-xl font-semibold mt-6">
-                            Not Move and Break Nothing
+                            No Move and Break Nothing
                         </h3>
                         <p className="text-muted-foreground max-w-xl">
                             Codebase doesn't exist, no more breaking changes
