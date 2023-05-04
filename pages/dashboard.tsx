@@ -28,7 +28,7 @@ export default function Page() {
                     <h2 className="font-semibold mb-1">Connect to CLI</h2>
                     <input
                         readOnly
-                        value="npx nodeploy init henry:my-project"
+                        value="nodeploy init henry:my-project"
                         className={inputStyles({
                             className: "w-full max-w-xl",
                         })}

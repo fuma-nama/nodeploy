@@ -18,6 +18,12 @@ Nodeploy is the most powerful hosting platform which supports nothing
 
 We created an insane developer experience that free developers from time-consuming jobs, by skipping code previews and unnecessary conversations
 
+### Notice
+
+All of the content is fake, the `nodeploy` cli doesn't actually exist
+
+If you had installed one, please delete it
+
 ### Contributions
 
 We're using pnpm

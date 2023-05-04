@@ -445,7 +445,7 @@ function Develop() {
                     className={inputStyles({
                         className: "mt-3 w-full md:max-w-4xl",
                     })}
-                    value="npx nodeploy connect"
+                    value="nodeploy connect"
                 />
                 <div className="grid grid-cols-1 md:grid-cols-2 w-full max-w-4xl mt-3 gap-3">
                     <div className="rounded-lg bg-background text-foreground p-3">
