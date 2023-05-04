@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { MoonStarIcon } from "lucide-react";
 import { inputStyles } from "@/components/input";
+import { NextSeo } from "next-seo";
 
 export default function Page() {
     return (
         <main>
+            <NextSeo title="My Project" />
+
             <Navbar />
             <div className="max-w-screen-2xl mx-auto flex flex-col gap-5 px-4 md:px-14 py-14">
                 <div className="flex flex-col sm:flex-row gap-3 sm:justify-between">

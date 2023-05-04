@@ -23,6 +23,7 @@ import { inputStyles } from "@/components/input";
 import { useEarth } from "@/components/earth";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
+import { NextSeo } from "next-seo";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -69,6 +70,7 @@ const iconBox = cva([
 export default function Home() {
     return (
         <main className={`relative flex flex-col ${inter.className}`}>
+            <NextSeo title="Home" />
             <nav className="w-full sticky flex flex-col top-0 bg-background border-b-2 border-border z-50">
                 <div className="flex flex-row gap-3 mx-auto w-full max-w-[2000px] px-8 py-2 sm:px-14 xl:px-24">
                     <BanIcon />
