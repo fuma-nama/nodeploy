@@ -21,6 +21,8 @@ import {
 import { inputStyles } from "@/components/input";
 import { useEarth } from "@/components/earth";
 import { twMerge } from "tailwind-merge";
+import Link from "next/link";
+
 const inter = Inter({ subsets: ["latin"] });
 
 const step = cva(
@@ -65,9 +67,7 @@ const iconBox = cva([
 
 export default function Home() {
     return (
-        <main
-            className={`flex max-w-[2000px] mx-auto flex-col ${inter.className}`}
-        >
+        <main className={`flex flex-col ${inter.className}`}>
             <div className="relative flex flex-col justify-center overflow-hidden z-[2] p-8 sm:p-14 xl:p-24 min-h-[75vh]">
                 <Hero />
                 <Image
@@ -98,7 +98,7 @@ export default function Home() {
             <Develop />
             <Promotion />
             <Deploy />
-
+            <DeveloperExperience />
             <div className="border-y-2 border-purple-400/30 w-full p-8 md:p-10 bg-gradient-to-b from-purple-800/10 to-purple-800/20 flex flex-col mt-40">
                 <div className="flex flex-col md:flex-row gap-6 max-w-screen-lg w-full mx-auto">
                     <Image
@@ -122,7 +122,90 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </main>
+    );
+}
+
+function Footer() {
+    return (
+        <footer className="flex flex-col bg-secondary">
+            <div className="flex flex-row gap-3 justify-between mx-auto w-full max-w-screen-lg p-10">
+                <h4 className="text-xl font-bold">Nodeploy</h4>
+                <div className="flex flex-col gap-3">
+                    <h5>Product</h5>
+                    <Link
+                        href="https://youtu.be/dQw4w9WgXcQ"
+                        target="_blank"
+                        className="text-sm text-muted-foreground"
+                    >
+                        No.js
+                    </Link>
+                    <Link
+                        href="https://youtu.be/dQw4w9WgXcQ"
+                        target="_blank"
+                        className="text-sm text-muted-foreground"
+                    >
+                        Nodeploy CLI
+                    </Link>
+                    <Link
+                        href="https://youtu.be/dQw4w9WgXcQ"
+                        target="_blank"
+                        className="text-sm text-muted-foreground"
+                    >
+                        Nobuild.rs
+                    </Link>
+                </div>
+                <div className="flex flex-col gap-3">
+                    <h5>Explore</h5>
+                    <Link
+                        href="https://youtu.be/dQw4w9WgXcQ"
+                        target="_blank"
+                        className="text-sm text-muted-foreground"
+                    >
+                        Documentation
+                    </Link>
+                    <Link
+                        href="https://youtu.be/dQw4w9WgXcQ"
+                        target="_blank"
+                        className="text-sm text-muted-foreground"
+                    >
+                        Pricing
+                    </Link>
+                    <Link
+                        href="https://youtu.be/dQw4w9WgXcQ"
+                        target="_blank"
+                        className="text-sm text-muted-foreground"
+                    >
+                        Integrations
+                    </Link>
+                </div>
+                <div className="flex flex-col gap-3">
+                    <h5>About</h5>
+                    <Link
+                        href="https://github.com/SonMooSans"
+                        target="_blank"
+                        className="text-sm text-muted-foreground"
+                    >
+                        Creator
+                    </Link>
+                    <Link
+                        href="https://github.com/SonMooSans/nodeploy"
+                        target="_blank"
+                        className="text-sm text-muted-foreground"
+                    >
+                        Open Source
+                    </Link>
+                    <Link
+                        href="https://discord.com/invite/QmgmFhg"
+                        target="_blank"
+                        className="text-sm text-muted-foreground"
+                    >
+                        Contact Us
+                    </Link>
+                </div>
+            </div>
+        </footer>
     );
 }
 
