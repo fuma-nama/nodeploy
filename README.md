@@ -22,8 +22,6 @@ We created an insane developer experience that free developers from time-consumi
 
 All of the content is fake, the `nodeploy` cli doesn't actually exist
 
-If you had installed one, please delete it
-
 ### Contributions
 
 We're using pnpm
