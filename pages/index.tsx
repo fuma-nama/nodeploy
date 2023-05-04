@@ -4,17 +4,22 @@ import Image from "next/image";
 import { cva } from "class-variance-authority";
 import {
     BrainCircuitIcon,
+    BrainIcon,
     CheckIcon,
     CodeIcon,
     FacebookIcon,
     FigmaIcon,
     GithubIcon,
+    LayoutDashboardIcon,
     MailWarningIcon,
     MessageSquareIcon,
+    QuoteIcon,
     TwitterIcon,
     UserXIcon,
 } from "lucide-react";
 import { inputStyles } from "@/components/input";
+import { useEarth } from "@/components/earth";
+import { twMerge } from "tailwind-merge";
 const inter = Inter({ subsets: ["latin"] });
 
 const step = cva(
@@ -27,6 +32,7 @@ const step = cva(
             color: {
                 purple: "from-purple-300 to-purple-700",
                 blue: "from-blue-300 to-blue-700",
+                orange: "from-orange-300 to-orange-700",
             },
         },
     }
@@ -83,92 +89,8 @@ export default function Home() {
                 </div>
             </div>
             <Develop />
-            <div className="p-8 sm:px-14 xl:px-24 text-center flex flex-col items-center gap-3 relative">
-                <div className="flex flex-col items-center">
-                    <span className="w-1 h-[100px] bg-gradient-to-b from-blue-200/0 to-blue-400" />
-                    <p className={step({ color: "blue" })}>2</p>
-                </div>
-                <h2 className="text-blue-400 text-3xl md:text-4xl font-bold">
-                    Promotion
-                </h2>
-                <h2 className="text-4xl md:text-5xl text-foreground font-bold text-center">
-                    <span className="whitespace-nowrap">Self-Promotion</span>{" "}
-                    <span className="whitespace-nowrap">before Preview</span>
-                </h2>
-                <p className="text-muted-foreground text-lg max-w-xl">
-                    Ignore your team members and skip code previews, start
-                    promoting your project on Reddit
-                </p>
-
-                <div className="w-full max-w-screen-lg grid grid-cols-1 md:grid-cols-2 mt-16 text-start gap-10">
-                    <div className="flex flex-col relative">
-                        <div className="flex flex-col divide-y-2 divide-border bg-secondary rounded-xl mr-10">
-                            {comments.map((comment, i) => (
-                                <div
-                                    key={i}
-                                    className="p-5 flex flex-row gap-3 items-start"
-                                >
-                                    <Image
-                                        alt="avatar"
-                                        src={comment.avatar}
-                                        width={40}
-                                        height={40}
-                                        className="rounded-full"
-                                    />
-                                    <div>
-                                        <h4 className="font-semibold">
-                                            {comment.user}
-                                        </h4>
-                                        <p className="text-sm text-muted-foreground">
-                                            {comment.message}
-                                        </p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                        <div className="flex flex-col gap-6 items-end rounded-2xl bg-popover p-6 shadow-lg shadow-blue-800/50 w-[22rem] max-w-[90%] -mt-20 ml-auto max-md:absolute max-md:bottom-0 max-md:right-0">
-                            <MailWarningIcon className="w-10 h-10 mx-auto text-blue-400" />
-                            <Message>
-                                Your commit has several issues to fix
-                            </Message>
-                            <Message>Let's skip code previews!</Message>
-                            <input
-                                placeholder="Message..."
-                                className={inputStyles({
-                                    className: "w-full mt-3",
-                                })}
-                            />
-                        </div>
-                    </div>
-                    <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
-                        <CodeIcon className="w-14 h-14 border-2 border-border shadow-lg shadow-blue-400/50 bg-secondary rounded-2xl p-3 text-blue-400" />
-                        <h3 className="text-xl font-semibold">
-                            No Code Previews
-                        </h3>
-                        <p className="text-muted-foreground max-w-xl">
-                            Stop wasting time on previewing code, just ignore
-                            all the bugs and design patterns
-                        </p>
-                        <UserXIcon className="mt-6 w-14 h-14 border-2 border-border shadow-lg shadow-blue-400/50 bg-secondary rounded-2xl p-3 text-blue-400" />
-                        <h3 className="text-xl font-semibold">
-                            No Team Members
-                        </h3>
-                        <p className="text-muted-foreground max-w-xl">
-                            Skip painful communications between team members and
-                            developers, just focus on destroying your project
-                        </p>
-                        <MessageSquareIcon className="mt-6 w-14 h-14 border-2 border-border shadow-lg shadow-blue-400/50 bg-secondary rounded-2xl p-3 text-blue-400" />
-                        <h3 className="text-xl font-semibold">
-                            No Limits for Promotion
-                        </h3>
-                        <p className="text-muted-foreground max-w-xl">
-                            Promote your project to the world and never worry
-                            about breaking subreddit rules, since you have
-                            deployed nothing
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <Promotion />
+            <Deploy />
             <h2 className="text-2xl md:text-5xl text-foreground font-bold text-center mt-80">
                 <span className="text-transparent bg-clip-text bg-gradient-to-b from-purple-500 to-purple-200">
                     First-Class
@@ -179,6 +101,91 @@ export default function Home() {
 
             <Image alt="image" src={"./train.svg"} width={342} height={155} />
         </main>
+    );
+}
+
+function Promotion() {
+    return (
+        <div className="p-8 sm:px-14 xl:px-24 text-center flex flex-col items-center gap-3 relative mt-20">
+            <div className="flex flex-col items-center">
+                <span className="w-1 h-[100px] bg-gradient-to-b from-blue-200/0 to-blue-400" />
+                <p className={step({ color: "blue" })}>2</p>
+            </div>
+            <h2 className="text-blue-400 text-3xl md:text-4xl font-bold">
+                Promotion
+            </h2>
+            <h2 className="text-4xl md:text-5xl text-foreground font-bold text-center">
+                <span className="whitespace-nowrap">Self-Promotion</span>{" "}
+                <span className="whitespace-nowrap">before Preview</span>
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-xl">
+                Ignore your team members and skip code previews, start promoting
+                your project on Reddit
+            </p>
+
+            <div className="w-full max-w-screen-lg grid grid-cols-1 md:grid-cols-2 mt-16 text-start gap-10">
+                <div className="flex flex-col relative">
+                    <div className="flex flex-col divide-y-2 divide-border bg-secondary rounded-xl mr-10">
+                        {comments.map((comment, i) => (
+                            <div
+                                key={i}
+                                className="p-5 flex flex-row gap-3 items-start"
+                            >
+                                <Image
+                                    alt="avatar"
+                                    src={comment.avatar}
+                                    width={40}
+                                    height={40}
+                                    className="rounded-full"
+                                />
+                                <div>
+                                    <h4 className="font-semibold">
+                                        {comment.user}
+                                    </h4>
+                                    <p className="text-sm text-muted-foreground">
+                                        {comment.message}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="flex flex-col gap-6 items-end rounded-2xl bg-popover p-6 shadow-lg shadow-blue-800/50 w-[22rem] max-w-[90%] -mt-20 ml-auto max-md:absolute max-md:bottom-0 max-md:right-0">
+                        <MailWarningIcon className="w-10 h-10 mx-auto text-blue-400" />
+                        <Message>Your commit has several issues to fix</Message>
+                        <Message>Let's skip code previews!</Message>
+                        <input
+                            placeholder="Message..."
+                            className={inputStyles({
+                                className: "w-full mt-3",
+                            })}
+                        />
+                    </div>
+                </div>
+                <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
+                    <CodeIcon className="w-14 h-14 border-2 border-border shadow-lg shadow-blue-400/50 bg-secondary rounded-2xl p-3 text-blue-400" />
+                    <h3 className="text-xl font-semibold">No Code Previews</h3>
+                    <p className="text-muted-foreground max-w-xl">
+                        Stop wasting time on previewing code, just ignore all
+                        the bugs and design patterns
+                    </p>
+                    <UserXIcon className="mt-6 w-14 h-14 border-2 border-border shadow-lg shadow-blue-400/50 bg-secondary rounded-2xl p-3 text-blue-400" />
+                    <h3 className="text-xl font-semibold">No Team Members</h3>
+                    <p className="text-muted-foreground max-w-xl">
+                        Skip painful communications between team members and
+                        developers, just focus on destroying your project
+                    </p>
+                    <MessageSquareIcon className="mt-6 w-14 h-14 border-2 border-border shadow-lg shadow-blue-400/50 bg-secondary rounded-2xl p-3 text-blue-400" />
+                    <h3 className="text-xl font-semibold">
+                        No Limits for Promotion
+                    </h3>
+                    <p className="text-muted-foreground max-w-xl">
+                        Promote your project to the world and never worry about
+                        breaking subreddit rules, since you have deployed
+                        nothing
+                    </p>
+                </div>
+            </div>
+        </div>
     );
 }
 
@@ -292,6 +299,123 @@ function Develop() {
                         </div>
                     </div>
                 </div>
+            </div>
+        </>
+    );
+}
+
+function Deploy() {
+    const earth = useEarth();
+
+    return (
+        <>
+            <div className="p-8 sm:px-14 xl:px-24 text-center flex flex-col items-center gap-3 relative mt-20 overflow-hidden">
+                <div className="flex flex-col items-center">
+                    <span className="w-1 h-[100px] bg-gradient-to-b from-orange-200/0 to-orange-400" />
+                    <p className={step({ color: "orange" })}>3</p>
+                </div>
+                <h2 className="text-orange-400 text-3xl md:text-4xl font-bold">
+                    Ship
+                </h2>
+                <h2 className="text-4xl md:text-5xl text-foreground font-bold text-center">
+                    <span className="whitespace-nowrap">
+                        Deploy to the Edge
+                    </span>
+                </h2>
+                <p className="text-muted-foreground text-lg max-w-xl">
+                    Ship your idea into the{" "}
+                    <span className="font-semibold text-foreground">
+                        Serverless Environment
+                    </span>{" "}
+                    with the fastest speed, by not deploying your app to any
+                    servers
+                </p>
+
+                <div className="w-full max-w-screen-2xl grid grid-cols-1 md:grid-cols-2 mt-16 text-start">
+                    <div className="flex flex-col gap-3 items-end max-md:max-h-0">
+                        <canvas
+                            ref={earth.ref}
+                            className="-mr-10 -mt-16"
+                            style={{
+                                width: 900,
+                                height: 900,
+                            }}
+                        />
+                    </div>
+                    <div
+                        className={twMerge(
+                            "flex flex-col gap-3 z-[2]",
+                            "max-sm:-m-8 max-sm:px-8",
+                            "max-md:bg-gradient-to-b max-md:from-transparent max-md:via-background max-md:to-background max-md:text-center max-md:items-center max-md:-m-14 max-md:px-14 max-md:pt-52"
+                        )}
+                    >
+                        <h3 className="text-2xl font-semibold">
+                            We focus on{" "}
+                            <u className="decoration-orange-400">Performance</u>
+                            , <u className="decoration-orange-400">Speed</u> and{" "}
+                            <u className="decoration-orange-400">
+                                User Experience
+                            </u>
+                        </h3>
+                        <p className="text-muted-foreground">
+                            Built with the cutting-edge serverless technology,
+                            we provide extremely scalable, safe and reliable
+                            service that handles the millions in 0ms
+                        </p>
+                        <BrainIcon className="mt-6 w-14 h-14 border-2 border-border shadow-lg shadow-orange-400/50 bg-secondary rounded-2xl p-3 text-orange-400" />
+                        <h3 className="text-xl font-semibold">
+                            Global Neural Network
+                        </h3>
+                        <p className="text-muted-foreground max-w-xl">
+                            Access your website from anywhere with the fastest
+                            speed in the world, getting a not found page within
+                            0 second
+                        </p>
+                        <LayoutDashboardIcon className="w-14 h-14 border-2 border-border shadow-lg shadow-orange-400/50 bg-secondary rounded-2xl p-3 text-orange-400 mt-6" />
+                        <h3 className="text-xl font-semibold">
+                            First-Class Monitoring System
+                        </h3>
+                        <p className="text-muted-foreground max-w-xl">
+                            Monitor your site without opening your computer,
+                            easily view analyst, traffic and usages right in
+                            your mind
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div
+                className={twMerge(
+                    "bg-gradient-to-b from-background to-secondary shadow-xl shadow-background",
+                    "w-full flex flex-col z-10 min-h-[15rem] items-center py-10 justify-center text-center",
+                    "md:-mt-48 md:from-secondary/10 md:to-secondary",
+                    "lg:flex-row lg:divide-x-2 lg:divide-border lg:px-10"
+                )}
+            >
+                {[
+                    {
+                        title: "100%",
+                        text: "Downtime",
+                    },
+                    {
+                        title: "0",
+                        text: "Cities",
+                    },
+                    {
+                        title: "40B+",
+                        text: "Requests per day",
+                    },
+                    {
+                        title: "0TB",
+                        text: "Date transfered",
+                    },
+                ].map((data, i) => (
+                    <div key={i} className="px-10 py-5">
+                        <p className="text-6xl font-semibold">{data.title}</p>
+                        <p className="text-xl text-muted-foreground font-medium">
+                            {data.text}
+                        </p>
+                    </div>
+                ))}
             </div>
         </>
     );
