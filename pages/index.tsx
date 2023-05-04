@@ -505,8 +505,8 @@ function Deploy() {
                     servers
                 </p>
 
-                <div className="w-full max-w-screen-2xl grid grid-cols-1 md:grid-cols-2 mt-16 text-start">
-                    <div className="flex flex-col gap-3 items-end max-md:max-h-0">
+                <div className="w-full max-w-screen-2xl grid grid-cols-1 md:grid-cols-2 mt-16 text-start z-[2] relative">
+                    <div className="flex flex-col gap-3 items-end max-md:absolute max-md:top-0 max-md:right-0">
                         <canvas
                             ref={earth.ref}
                             className="-mr-10 -mt-16"
@@ -607,11 +607,10 @@ function Hero() {
                 Scalable Hosting platform that supports Nothing
             </p>
             <div className="mt-8 flex flex-row gap-3">
-                <Link
-                    href="/dashboard"
-                    className="px-8 py-2 rounded-md bg-primary text-sm md:text-lg text-primary-foreground font-semibold"
-                >
-                    Try Now
+                <Link href="/dashboard">
+                    <button className="px-8 py-2 rounded-md bg-primary text-sm md:text-lg text-primary-foreground font-semibold min-h-full">
+                        Try Now
+                    </button>
                 </Link>
                 <button className="px-6 py-2 rounded-md bg-black border-2 border-purple-100 shadow-xl shadow-purple-400/50 text-sm md:text-lg text-foreground font-semibold">
                     {`Learn More ->`}

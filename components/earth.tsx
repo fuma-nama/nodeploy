@@ -18,12 +18,9 @@ export function useEarth() {
             mapSamples: 16000,
             mapBrightness: 6,
             baseColor: [0.7, 0.3, 0.2],
-            markerColor: [1, 1, 1],
+            markerColor: [0.98, 0.57, 0.24],
             glowColor: [0.98, 0.57, 0.24],
-            markers: [
-                { location: [37.7595, -122.4367], size: 0.03 },
-                { location: [40.7128, -74.006], size: 0.1 },
-            ],
+            markers: [],
             onRender: (state) => {
                 state.phi = phi;
                 phi += 0.01;
