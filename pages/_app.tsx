@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 titleTemplate="No Deploy | %s"
                 description="The hosting platform that supports Nothing"
                 openGraph={{
-                    url: "https://nodeploy.vercel.app",
+                    url: "https://nodeploy-neon.vercel.app",
                     title: "No Deploy",
                     description: "The hosting platform that supports Nothing",
                     images: [

@@ -6,7 +6,7 @@
 <p align='center'>Not to Deploy, Nothing to worry</p>
 <div align='center'>
 
-[Website](https://nodeploy.vercel.app)
+[Website](https://nodeploy-neon.vercel.app)
 |
 Documentation (coming soon)
 
