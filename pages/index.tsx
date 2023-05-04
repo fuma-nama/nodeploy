@@ -7,13 +7,14 @@ import {
     BrainIcon,
     CheckIcon,
     CodeIcon,
+    DatabaseIcon,
     FacebookIcon,
     FigmaIcon,
     GithubIcon,
     LayoutDashboardIcon,
     MailWarningIcon,
     MessageSquareIcon,
-    QuoteIcon,
+    ServerIcon,
     TwitterIcon,
     UserXIcon,
 } from "lucide-react";
@@ -56,6 +57,12 @@ const comments = [
     },
 ];
 
+const iconBox = cva([
+    "relative rounded-md w-fit h-fit p-3",
+    'before:content-[""] before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-br before:from-border before:via-white/50 before:to-border',
+    "before:[-webkit-mask:linear-gradient(#000,#000)_content-box,linear-gradient(#000,#000)] before:[-webkit-mask-composite:xor] before:rounded-md",
+]);
+
 export default function Home() {
     return (
         <main
@@ -91,16 +98,89 @@ export default function Home() {
             <Develop />
             <Promotion />
             <Deploy />
-            <h2 className="text-2xl md:text-5xl text-foreground font-bold text-center mt-80">
+
+            <div className="border-y-2 border-purple-400/30 w-full p-8 md:p-10 bg-gradient-to-b from-purple-800/10 to-purple-800/20 flex flex-col mt-40">
+                <div className="flex flex-col md:flex-row gap-6 max-w-screen-lg w-full mx-auto">
+                    <Image
+                        alt="image"
+                        src={"./train.svg"}
+                        width={242}
+                        height={55}
+                    />
+                    <div>
+                        <h2 className="text-2xl font-semibold">
+                            DevOps is no longer a Job
+                        </h2>
+                        <p className="text-purple-400 md:text-lg">
+                            Make DevOps as confortable as riding a train
+                        </p>
+                        <div className="flex flex-row gap-3 mt-6">
+                            <button className="bg-primary text-primary-foreground font-semibold px-4 py-2 rounded-lg">
+                                Try Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    );
+}
+
+function DeveloperExperience() {
+    return (
+        <div className="p-8 sm:px-14 xl:px-24 text-center flex flex-col items-center gap-3 mt-40 overflow-hidden">
+            <h2 className="text-4xl md:text-5xl text-foreground font-bold">
                 <span className="text-transparent bg-clip-text bg-gradient-to-b from-purple-500 to-purple-200">
-                    First-Class
+                    All in One
                 </span>
                 <br />
-                Developer Experience
+                Enhanced DX
             </h2>
+            <p className="text-muted-foreground text-lg max-w-xl">
+                All features, frameworks and programming languages isn't
+                supported by default with zero configuration
+            </p>
+            <div className="w-full max-w-screen-lg grid grid-cols-1 md:grid-cols-2 mt-16 text-start gap-x-6 gap-y-14">
+                <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
+                    <div className={iconBox()}>
+                        <CodeIcon />
+                    </div>
 
-            <Image alt="image" src={"./train.svg"} width={342} height={155} />
-        </main>
+                    <h3 className="text-xl font-bold">Web Development</h3>
+                    <p className="text-muted-foreground">
+                        Don't support Next.js, Svelte Kit and Remix
+                    </p>
+                </div>
+                <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
+                    <div className={iconBox()}>
+                        <ServerIcon />
+                    </div>
+                    <h3 className="text-xl font-bold">Backend Development</h3>
+                    <p className="text-muted-foreground">
+                        From Java, Rust to Go, we don't handle any of them
+                    </p>
+                </div>
+                <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
+                    <div className={iconBox()}>
+                        <DatabaseIcon />
+                    </div>
+                    <h3 className="text-xl font-bold">Database</h3>
+                    <p className="text-muted-foreground">
+                        Integrate with None of the Databases you have
+                    </p>
+                </div>
+                <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
+                    <div className={iconBox()}>
+                        <LayoutDashboardIcon />
+                    </div>
+                    <h3 className="text-xl font-bold">Docker Container</h3>
+                    <p className="text-muted-foreground">
+                        Preventing you to use Docker because we handle none of
+                        them
+                    </p>
+                </div>
+            </div>
+        </div>
     );
 }
 
@@ -309,7 +389,7 @@ function Deploy() {
 
     return (
         <>
-            <div className="p-8 sm:px-14 xl:px-24 text-center flex flex-col items-center gap-3 relative mt-20 overflow-hidden">
+            <div className="p-8 sm:px-14 xl:px-24 text-center flex flex-col items-center gap-3 mt-20 overflow-hidden">
                 <div className="flex flex-col items-center">
                     <span className="w-1 h-[100px] bg-gradient-to-b from-orange-200/0 to-orange-400" />
                     <p className={step({ color: "orange" })}>3</p>
