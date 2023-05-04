@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Image from "next/image";
 import { cva } from "class-variance-authority";
 import {
+    BanIcon,
     BrainCircuitIcon,
     BrainIcon,
     CheckIcon,
@@ -67,8 +68,16 @@ const iconBox = cva([
 
 export default function Home() {
     return (
-        <main className={`flex flex-col ${inter.className}`}>
-            <div className="relative flex flex-col justify-center overflow-hidden z-[2] p-8 sm:p-14 xl:p-24 min-h-[75vh]">
+        <main className={`relative flex flex-col ${inter.className}`}>
+            <nav className="w-full sticky flex flex-col top-0 bg-background border-b-2 border-border z-50">
+                <div className="flex flex-row gap-3 mx-auto w-full max-w-[2000px] px-8 py-2 sm:px-14 xl:px-24">
+                    <BanIcon />
+                    <h4 className="font-semibold text-lg font-mono">
+                        No Deploy
+                    </h4>
+                </div>
+            </nav>
+            <div className="relative flex flex-col justify-center overflow-hidden mx-auto w-full max-w-[2000px] z-[2] p-8 sm:p-14 xl:p-24 min-h-[75vh]">
                 <Hero />
                 <Image
                     alt="image"
@@ -130,7 +139,7 @@ export default function Home() {
 function Footer() {
     return (
         <footer className="flex flex-col bg-secondary">
-            <div className="flex flex-row gap-3 justify-between mx-auto w-full max-w-screen-lg p-10">
+            <div className="flex flex-col md:flex-row gap-3 gap-y-8 justify-between mx-auto w-full max-w-screen-lg p-10">
                 <h4 className="text-xl font-bold">Nodeploy</h4>
                 <div className="flex flex-col gap-3">
                     <h5>Product</h5>
@@ -596,9 +605,12 @@ function Hero() {
                 Scalable Hosting platform that supports Nothing
             </p>
             <div className="mt-8 flex flex-row gap-3">
-                <button className="px-8 py-2 rounded-md bg-primary text-sm md:text-lg text-primary-foreground font-semibold">
+                <Link
+                    href="/dashboard"
+                    className="px-8 py-2 rounded-md bg-primary text-sm md:text-lg text-primary-foreground font-semibold"
+                >
                     Try Now
-                </button>
+                </Link>
                 <button className="px-6 py-2 rounded-md bg-black border-2 border-purple-100 shadow-xl shadow-purple-400/50 text-sm md:text-lg text-foreground font-semibold">
                     {`Learn More ->`}
                 </button>
