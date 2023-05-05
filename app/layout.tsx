@@ -24,6 +24,10 @@ export const metadata: Metadata = {
         creator: "@money_is_shark",
         images: "/banner.png",
     },
+    metadataBase:
+        process.env.VERCEL_URL != null
+            ? new URL(`https://${process.env.VERCEL_URL}`)
+            : new URL(`http://localhost:${process.env.PORT || 3000}`),
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
