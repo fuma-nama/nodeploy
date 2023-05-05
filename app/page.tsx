@@ -78,10 +78,10 @@ export default function Home() {
                 <Hero />
                 <Image
                     alt="image"
-                    priority
                     src={"./dashboard.svg"}
-                    width={2000}
-                    height={1400}
+                    width={1631}
+                    height={900}
+                    priority
                     className={clsx(
                         "-z-[1] mt-40 [transform:rotate3d(0.5,0.5,0,20deg)] shadow-2xl shadow-purple-400/50 rounded-lg",
                         "absolute top-80 left-[50%] xl:top-20 min-[1600px]:left-[40%] w-full max-w-6xl max-sm:hidden"
