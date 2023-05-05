@@ -1,6 +1,9 @@
-import { useEffect, useRef } from "react";
+"use client";
+
+import { ComponentPropsWithoutRef, useEffect, useRef } from "react";
 import createGlobe from "cobe";
-export function useEarth() {
+
+export function Earth(props: ComponentPropsWithoutRef<"canvas">) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
@@ -32,5 +35,5 @@ export function useEarth() {
         };
     }, []);
 
-    return { ref: canvasRef };
+    return <canvas ref={canvasRef} {...props} />;
 }

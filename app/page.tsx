@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { Inter } from "next/font/google";
 import Image from "next/image";
 import { cva } from "class-variance-authority";
 import {
@@ -20,12 +19,9 @@ import {
     UserXIcon,
 } from "lucide-react";
 import { inputStyles } from "@/components/input";
-import { useEarth } from "@/components/earth";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
-import { NextSeo } from "next-seo";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Earth } from "@/app/earth";
 
 const step = cva(
     [
@@ -69,8 +65,7 @@ const iconBox = cva([
 
 export default function Home() {
     return (
-        <main className={`relative flex flex-col ${inter.className}`}>
-            <NextSeo title="Home" />
+        <main className="relative flex flex-col">
             <nav className="w-full sticky flex flex-col top-0 bg-background border-b-2 border-border z-50">
                 <div className="flex flex-row gap-3 mx-auto w-full max-w-[2000px] px-8 py-2 sm:px-14 xl:px-24">
                     <BanIcon />
@@ -479,8 +474,6 @@ function Develop() {
 }
 
 function Deploy() {
-    const earth = useEarth();
-
     return (
         <>
             <div className="p-8 sm:px-14 xl:px-24 text-center flex flex-col items-center gap-3 mt-20 overflow-hidden">
@@ -507,8 +500,7 @@ function Deploy() {
 
                 <div className="w-full max-w-screen-2xl grid grid-cols-1 md:grid-cols-2 mt-16 text-start z-[2] relative">
                     <div className="flex flex-col gap-3 items-end max-md:absolute max-md:top-0 max-md:right-0">
-                        <canvas
-                            ref={earth.ref}
+                        <Earth
                             className="-mr-10 -mt-16"
                             style={{
                                 width: 900,
@@ -612,7 +604,7 @@ function Hero() {
                         Try Now
                     </button>
                 </Link>
-                <button className="px-6 py-2 rounded-md bg-black border-2 border-purple-100 shadow-xl shadow-purple-400/50 text-sm md:text-lg text-foreground font-semibold">
+                <button className="px-6 py-2 rounded-md bg-black border-2 border-purple-100 shadow-xl shadow-purple-400/50 text-sm md:text-lg text-white font-semibold">
                     {`Learn More ->`}
                 </button>
             </div>
