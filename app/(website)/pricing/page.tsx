@@ -62,8 +62,8 @@ function Content() {
                             "0 API calls per week",
                             "0 Regions",
                             "0KB Brandwidth",
-                        ].map((item) => (
-                            <li>
+                        ].map((item, i) => (
+                            <li key={i}>
                                 <CheckIcon className="inline text-background rounded-full p-0.5 w-4 h-4 bg-white mr-2" />
                                 {item}
                             </li>
