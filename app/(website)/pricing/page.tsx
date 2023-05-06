@@ -1,6 +1,11 @@
 import { CheckIcon } from "lucide-react";
 import { Card } from "./card";
 import { Button } from "@/components/ui/button";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Pricing",
+};
 
 export default function PricingPage() {
     return (
