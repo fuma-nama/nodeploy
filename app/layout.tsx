@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 import "@/styles/globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--inter-font" });
 
 export const metadata: Metadata = {
     title: {
@@ -33,7 +33,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en">
-            <body className={`dark ${inter.className}`}>{children}</body>
+            <body className={`dark ${inter.className} ${inter.variable}`}>
+                {children}
+            </body>
         </html>
     );
 }
