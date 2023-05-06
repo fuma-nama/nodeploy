@@ -26,5 +26,8 @@
         "tailwindcss": "3.3.2",
         "tailwindcss-animate": "^1.0.5",
         "typescript": "5.0.4"
+    },
+    "devDependencies": {
+        "@next/bundle-analyzer": "^13.4.1"
     }
 }
