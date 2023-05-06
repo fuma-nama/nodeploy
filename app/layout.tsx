@@ -14,7 +14,10 @@ export const metadata: Metadata = {
     description: "The hosting platform that supports Nothing",
     openGraph: {
         url: "https://nodeploy-neon.vercel.app",
-        title: "No Deploy",
+        title: {
+            template: "%s | No Deploy",
+            default: "No Deploy",
+        },
         description: "The hosting platform that supports Nothing",
         images: "/banner.png",
         siteName: "No Deploy",
