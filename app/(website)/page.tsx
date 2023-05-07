@@ -17,7 +17,7 @@ import {
     TwitterIcon,
     UserXIcon,
 } from "lucide-react";
-import { inputStyles } from "@/components/input";
+import { inputStyles } from "@/components/ui/input";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
 import { Earth } from "./earth";

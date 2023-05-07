@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { inputStyles } from "@/components/input";
+import { inputStyles } from "@/components/ui/input";
 import { Chart } from "./chart";
 import { Metadata } from "next";
 
