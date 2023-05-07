@@ -18,26 +18,42 @@ export const Docs = defineDocumentType(() => ({
             type: "string",
             resolve: (post) => `/docs/${post._raw.flattenedPath}`,
         },
-        pathSegments: {
-            type: "json",
-            resolve: (doc) =>
-                doc._raw.flattenedPath
-                    .split("/")
-                    .slice(1)
-                    .map((dirName) => {
-                        const re = /^((\d+)-)?(.*)$/;
-                        const [, , orderStr, pathName] =
-                            dirName.match(re) ?? [];
-                        const order = orderStr ? parseInt(orderStr) : 0;
-                        return { order, pathName };
-                    }),
+    },
+}));
+
+export const Meta = defineDocumentType(() => ({
+    name: "Meta",
+    filePathPattern: `**/meta.json`,
+    contentType: "data",
+    fields: {
+        title: {
+            type: "string",
+            description: "The title of the folder",
+            required: false,
+        },
+        pages: {
+            type: "list",
+            of: {
+                type: "string",
+            },
+            description: "Pages of the folder",
+            default: [],
+        },
+    },
+    computedFields: {
+        url: {
+            type: "string",
+            resolve: (post) =>
+                post._raw.sourceFileDir === "."
+                    ? "/docs"
+                    : `/docs/${post._raw.sourceFileDir}`,
         },
     },
 }));
 
 export default makeSource({
     contentDirPath: "docs",
-    documentTypes: [Docs],
+    documentTypes: [Docs, Meta],
     mdx: {
         rehypePlugins: [[rehypePrettycode, { theme: "github-dark" }]],
         remarkPlugins: [remarkGfm],
