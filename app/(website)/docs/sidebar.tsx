@@ -19,7 +19,7 @@ export function Sidebar({ tree }: { tree: TreeNode[] }) {
 
 function Node({ item }: { item: TreeNode }) {
     if (item.type === "separator")
-        return <p className="font-semibold">{item.name}</p>;
+        return <p className="font-semibold text-sm">{item.name}</p>;
     if (item.type === "folder") return <Folder item={item} />;
 
     return <Item item={item} />;

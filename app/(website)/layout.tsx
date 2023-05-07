@@ -5,7 +5,7 @@ import { Navbar } from "./navbar";
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <main className="relative flex flex-col min-h-screen">
-            <nav className="w-full sticky flex flex-col top-0 bg-background border-b-2 border-border z-50 px-8 py-2 sm:px-14 xl:px-24">
+            <nav className="w-full sticky top-0 bg-background border-b-2 border-border z-50 px-8 sm:px-14 xl:px-24">
                 <Navbar />
             </nav>
             {children}

@@ -16,6 +16,28 @@ export function MdxContent({ docs }: { docs: Docs }) {
                 h3: (props) => <h3 className="font-bold text-2xl" {...props} />,
                 h4: (props) => <h4 className="font-bold text-xl" {...props} />,
                 h5: (props) => <h5 className="font-bold text-lg" {...props} />,
+                pre: (props) => {
+                    const ref = useRef<HTMLPreElement>(null);
+
+                    return (
+                        <pre {...props} ref={ref} className="relative">
+                            <CopyButton
+                                onCopy={() => {
+                                    if (
+                                        ref.current == null ||
+                                        ref.current.textContent == null
+                                    )
+                                        return;
+
+                                    navigator.clipboard.writeText(
+                                        ref.current.textContent
+                                    );
+                                }}
+                            />
+                            {props.children}
+                        </pre>
+                    );
+                },
                 a: ({ href, ref, ...props }) => {
                     if (href == null) return <></>;
 
@@ -40,22 +62,11 @@ export function MdxContent({ docs }: { docs: Docs }) {
 }
 
 function CodeBlock(props: ComponentPropsWithoutRef<"code">) {
-    const ref = useRef<HTMLElement>(null);
-
     return (
         <code
             {...props}
-            className="relative p-3 rounded-xl border-[1px] bg-secondary"
-            ref={ref}
+            className="p-3 rounded-xl border-[1px] bg-secondary overflow-x-auto"
         >
-            <CopyButton
-                onCopy={() => {
-                    if (ref.current == null || ref.current.textContent == null)
-                        return;
-
-                    navigator.clipboard.writeText(ref.current.textContent);
-                }}
-            />
             {props.children}
         </code>
     );

@@ -9,7 +9,7 @@ export function Navbar() {
 
     return (
         <div
-            className={`flex flex-row gap-12 items-center mx-auto w-full ${
+            className={`flex flex-row gap-12 items-center mx-auto w-full h-12 ${
                 pathname === "/" ? "max-w-[1800px]" : "max-w-screen-2xl"
             }`}
         >
