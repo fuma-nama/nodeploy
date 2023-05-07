@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { MdxContent } from "./mdx";
 import { Param } from "../layout";
 import type { Metadata } from "next";
+import { getTableOfContents } from "@/lib/toc";
+import { TOC } from "./toc";
 
 export default async function Page({ params }: { params: Param }) {
     const path = params.slug.join("/");
@@ -12,7 +14,32 @@ export default async function Page({ params }: { params: Param }) {
         notFound();
     }
 
-    return <MdxContent docs={page} />;
+    const toc = await getTableOfContents(page.body.raw);
+
+    const headingIds = toc.items
+        ?.flatMap((item) => [item.url, item.items?.map((item) => item.url)])
+        .flat()
+        .filter(Boolean)
+        .map((id) => id!.split("#")[1]);
+
+    return (
+        <>
+            <div className="flex flex-col gap-6 py-16">
+                <h1 className="text-4xl font-bold">{page.title}</h1>
+                <MdxContent docs={page} />
+            </div>
+            <div className="relative flex flex-col gap-3 max-xl:hidden py-16">
+                <div className="sticky top-28 flex flex-col gap-3 overflow-auto max-h-[calc(100vh-4rem-3rem)]">
+                    <h3 className="font-semibold">On this page</h3>
+                    <TOC
+                        toc={toc}
+                        itemIds={headingIds ?? []}
+                        relativeUrl={page.url}
+                    />
+                </div>
+            </div>
+        </>
+    );
 }
 
 export function generateMetadata({ params }: { params: Param }): Metadata {
