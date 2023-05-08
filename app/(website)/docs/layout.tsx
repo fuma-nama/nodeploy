@@ -1,16 +1,14 @@
-import { allDocs, allMeta } from "@/.contentlayer/generated";
+import { allDocs } from "@/.contentlayer/generated";
 import { ReactNode } from "react";
-import { buildPageTree } from "@/lib/generate-tree";
-import { Sidebar } from "./sidebar";
+import { Sidebar } from "@/components/layout/sidebar";
+import { getPageTree } from "@/lib/cache";
 
 export type Param = {
     slug: string[];
 };
 
-const rootMeta = allMeta.find((meta) => meta._raw.flattenedPath === "meta")!;
-
 export default function DocsLayout({ children }: { children: ReactNode }) {
-    const tree = buildPageTree(rootMeta);
+    const tree = getPageTree();
 
     return (
         <div className="flex flex-col px-8 sm:px-14 xl:px-24">

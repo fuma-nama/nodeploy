@@ -117,7 +117,7 @@ function Folder({ item }: { item: FolderNode }) {
                 </h4>
             ) : (
                 <Link href={index.url} className={styles} onClick={onClick}>
-                    {index.name}
+                    {name}
                     {icon}
                 </Link>
             )}

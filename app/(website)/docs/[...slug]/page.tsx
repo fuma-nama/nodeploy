@@ -3,8 +3,10 @@ import { notFound } from "next/navigation";
 import { MdxContent } from "./mdx";
 import { Param } from "../layout";
 import type { Metadata } from "next";
-import { getTableOfContents } from "@/lib/toc";
+import { getTableOfContents } from "@/lib/get-toc";
 import { TOC } from "@/components/layout/toc";
+import { Breadcrumb } from "@/components/layout/breadcrumb";
+import { getPageTree } from "@/lib/cache";
 
 export default async function Page({ params }: { params: Param }) {
     const path = params.slug.join("/");
@@ -14,11 +16,13 @@ export default async function Page({ params }: { params: Param }) {
         notFound();
     }
 
+    const tree = getPageTree();
     const toc = await getTableOfContents(page.body.raw);
 
     return (
         <>
             <div className="flex flex-col gap-6 py-16">
+                <Breadcrumb tree={tree} />
                 <h1 className="text-4xl font-bold">{page.title}</h1>
                 <MdxContent docs={page} />
             </div>

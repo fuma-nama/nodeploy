@@ -1,7 +1,7 @@
 "use client";
 
 import { ActiveAnchorProvider, useActiveAnchor } from "./toc-provider";
-import { Item, TableOfContents } from "@/lib/toc";
+import { Item, TableOfContents } from "@/lib/get-toc";
 import clsx from "clsx";
 import { useMemo } from "react";
 
