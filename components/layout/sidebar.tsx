@@ -81,8 +81,10 @@ function Folder({ item }: { item: FolderNode }) {
     const { name, children, index } = item;
 
     const pathname = usePathname();
-    const [extend, setExtend] = useState(() => pathname.startsWith(item.url));
     const active = pathname === item.url;
+    const [extend, setExtend] = useState(
+        () => active || pathname.startsWith(item.url + "/")
+    );
 
     const styles = clsx(
         "text-sm text-muted-foreground flex flex-row justify-between cursor-pointer",
