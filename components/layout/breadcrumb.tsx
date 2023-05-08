@@ -20,8 +20,10 @@ export function Breadcrumb({ tree }: { tree: TreeNode[] }) {
         let root: TreeNode[] = tree;
         const segments = pathname.split("/");
 
-        for (let i = 2; i < segments.length; i++) {
-            const segment = segments[i];
+        for (let i = 2; i <= segments.length; i++) {
+            if (i === segments.length && root.length === 0) break;
+
+            const segment = segments[i] ?? undefined;
             const node = root.find((node) => {
                 if (node.type === "page" || node.type === "folder") {
                     return node.url.split("/")[i] === segment;
@@ -41,6 +43,8 @@ export function Breadcrumb({ tree }: { tree: TreeNode[] }) {
 
             if (node.type === "folder") {
                 root = node.children;
+            } else {
+                root = [];
             }
         }
 

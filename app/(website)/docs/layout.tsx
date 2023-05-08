@@ -4,7 +4,7 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { getPageTree } from "@/lib/cache";
 
 export type Param = {
-    slug: string[];
+    slug?: string[];
 };
 
 export default function DocsLayout({ children }: { children: ReactNode }) {

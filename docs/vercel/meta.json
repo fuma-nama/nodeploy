@@ -1,3 +1,4 @@
 {
-    "pages": ["deploy", "advanced"]
+    "title": "Vercel",
+    "pages": ["index", "deploy", "advanced"]
 }

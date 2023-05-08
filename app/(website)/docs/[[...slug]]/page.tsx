@@ -9,7 +9,7 @@ import { Breadcrumb } from "@/components/layout/breadcrumb";
 import { getPageTree } from "@/lib/cache";
 
 export default async function Page({ params }: { params: Param }) {
-    const path = params.slug.join("/");
+    const path = (params.slug ?? []).join("/");
     const page = allDocs.find((page) => page._raw.flattenedPath === path);
 
     if (page == null) {
@@ -39,9 +39,8 @@ export default async function Page({ params }: { params: Param }) {
 }
 
 export function generateMetadata({ params }: { params: Param }): Metadata {
-    const page = allDocs.find((page) =>
-        page._raw.flattenedPath.split("/").every((e, i) => params.slug[i] === e)
-    );
+    const path = (params.slug ?? []).join("/");
+    const page = allDocs.find((page) => page._raw.flattenedPath === path);
 
     return {
         title: page?.title,

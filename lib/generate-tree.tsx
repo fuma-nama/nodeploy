@@ -36,7 +36,13 @@ export function buildPageTree(meta: Meta): TreeNode[] {
             };
 
         const path = [...folder, item].join("/");
-        const page = allDocs.find((page) => page._raw.flattenedPath === path);
+        const page = allDocs.find((page) => {
+            return (
+                page._raw.flattenedPath === path ||
+                (item === "index" &&
+                    page._raw.flattenedPath === folder.join("/"))
+            );
+        });
         const meta = allMeta.find((meta) => meta._raw.sourceFileDir === path);
 
         if (meta != null)
