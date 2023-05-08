@@ -1,19 +1,51 @@
 "use client";
 
 import clsx from "clsx";
-import { ChevronDownIcon } from "lucide-react";
-import { useState } from "react";
+import { ChevronDownIcon, MenuIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { TreeNode, FileNode, FolderNode } from "@/lib/generate-tree";
 
 export function Sidebar({ tree }: { tree: TreeNode[] }) {
+    const [open, setOpen] = useState(false);
+    const pathname = usePathname();
+
+    useEffect(() => {
+        setOpen(false);
+    }, [pathname]);
+
     return (
-        <div className="flex flex-col gap-3">
-            {tree.map((item, i) => (
-                <Node key={i} item={item} />
-            ))}
-        </div>
+        <>
+            <button
+                className={clsx(
+                    "fixed w-full inset-x-0 h-12 bg-background border-b-[1px] z-50 px-8 sm:px-14 lg:hidden",
+                    "flex flex-row gap-2 items-center text-sm"
+                )}
+                onClick={() => setOpen((prev) => !prev)}
+            >
+                <MenuIcon className="w-4 h-4" />
+                Menu
+            </button>
+            <div
+                className={clsx(
+                    "relative",
+                    "max-lg:fixed max-lg:p-8 max-lg:overflow-auto max-lg:sm:p-14 max-lg:top-24 max-lg:inset-0 max-lg: max-lg:backdrop-blur-xl max-lg:z-50 max-lg:bg-background/50",
+                    open ? "block" : "max-lg:hidden"
+                )}
+            >
+                <div
+                    className={clsx(
+                        "flex flex-col gap-3",
+                        "lg:sticky lg:top-12 lg:overflow-auto lg:max-h-[calc(100vh-3rem)] lg:py-16"
+                    )}
+                >
+                    {tree.map((item, i) => (
+                        <Node key={i} item={item} />
+                    ))}
+                </div>
+            </div>
+        </>
     );
 }
 
@@ -62,6 +94,11 @@ function Folder({ item }: { item: FolderNode }) {
     const icon = (
         <ChevronDownIcon
             className={clsx("w-5 h-5", extend ? "rotate-0" : "-rotate-90")}
+            onClick={(e) => {
+                setExtend((prev) => !prev);
+                e.preventDefault();
+                e.stopPropagation();
+            }}
         />
     );
 
@@ -85,26 +122,26 @@ function Folder({ item }: { item: FolderNode }) {
                 </Link>
             )}
             {extend && (
-                <div className="flex flex-col mt-3">
+                <ul className="flex flex-col mt-3">
                     {children.map((item, i) => {
                         const active =
                             item.type !== "separator" && pathname === item.url;
 
                         return (
-                            <div key={i} className="flex flex-row gap-4 py-1">
-                                <span
-                                    className={clsx(
-                                        "w-[1px] -my-1",
-                                        active
-                                            ? "bg-purple-400"
-                                            : "bg-muted-foreground"
-                                    )}
-                                />
+                            <li
+                                key={i}
+                                className={clsx(
+                                    "flex pl-4 py-1 border-l-2 border-border",
+                                    active
+                                        ? "border-purple-400"
+                                        : "border-border"
+                                )}
+                            >
                                 <Node item={item} />
-                            </div>
+                            </li>
                         );
                     })}
-                </div>
+                </ul>
             )}
         </div>
     );

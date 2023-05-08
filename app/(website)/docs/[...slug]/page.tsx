@@ -24,7 +24,9 @@ export default async function Page({ params }: { params: Param }) {
             </div>
             <div className="relative flex flex-col gap-3 max-xl:hidden py-16">
                 <div className="sticky top-28 flex flex-col gap-3 overflow-auto max-h-[calc(100vh-4rem-3rem)]">
-                    <h3 className="font-semibold">On this page</h3>
+                    {toc.length > 0 && (
+                        <h3 className="font-semibold">On this page</h3>
+                    )}
                     <TOC toc={toc} />
                 </div>
             </div>

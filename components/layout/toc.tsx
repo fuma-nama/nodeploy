@@ -7,7 +7,6 @@ import { useMemo } from "react";
 
 export function TOC({ toc }: { toc: TableOfContents }) {
     const headings = useMemo(() => {
-        console.log("toc");
         return toc
             .flatMap((item) => getHeadings(item))
             .map((item) => item.split("#")[1]);
