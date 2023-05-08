@@ -1,9 +1,36 @@
 "use client";
 import { Docs } from "contentlayer/generated";
-import { CheckIcon, CopyIcon } from "lucide-react";
+import { CheckIcon, CopyIcon, LinkIcon } from "lucide-react";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import Link from "next/link";
-import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
+import {
+    ComponentProps,
+    createElement,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
+
+function heading<T extends keyof JSX.IntrinsicElements>(
+    element: T,
+    className: string,
+    { id, children, ...props }: ComponentProps<T>
+) {
+    return createElement(element, {
+        ...props,
+        className: `group font-bold ${className}`,
+        children: [
+            <span id={id} className="absolute -mt-20" />,
+            children,
+            <a
+                href={`#${id}`}
+                className="opacity-0 group-hover:opacity-100 inline-block ml-2 text-muted-foreground"
+            >
+                <LinkIcon className="w-4 h-4" />
+            </a>,
+        ],
+    });
+}
 
 export function MdxContent({ docs }: { docs: Docs }) {
     const MDX = useMDXComponent(docs.body.code);
@@ -11,11 +38,12 @@ export function MdxContent({ docs }: { docs: Docs }) {
     return (
         <MDX
             components={{
-                h1: (props) => <h1 className="font-bold text-4xl" {...props} />,
-                h2: (props) => <h2 className="font-bold text-3xl" {...props} />,
-                h3: (props) => <h3 className="font-bold text-2xl" {...props} />,
-                h4: (props) => <h4 className="font-bold text-xl" {...props} />,
-                h5: (props) => <h5 className="font-bold text-lg" {...props} />,
+                h1: (props) => heading("h1", "text-4xl", props),
+                h2: (props) => heading("h2", "text-3xl", props),
+                h3: (props) => heading("h3", "text-2xl", props),
+                h4: (props) => heading("h4", "text-xl", props),
+                h5: (props) => heading("h5", "text-lg", props),
+                h6: (props) => heading("h6", "test-base", props),
                 pre: (props) => {
                     const ref = useRef<HTMLPreElement>(null);
 
@@ -55,20 +83,16 @@ export function MdxContent({ docs }: { docs: Docs }) {
                         />
                     );
                 },
-                code: CodeBlock,
+                code: (props) => (
+                    <code
+                        {...props}
+                        className="p-3 rounded-xl border-[1px] bg-secondary overflow-x-auto"
+                    >
+                        {props.children}
+                    </code>
+                ),
             }}
         />
-    );
-}
-
-function CodeBlock(props: ComponentPropsWithoutRef<"code">) {
-    return (
-        <code
-            {...props}
-            className="p-3 rounded-xl border-[1px] bg-secondary overflow-x-auto"
-        >
-            {props.children}
-        </code>
     );
 }
 

@@ -2,7 +2,6 @@ import { defineDocumentType, makeSource } from "contentlayer/source-files";
 import rehypePrettycode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 export const Docs = defineDocumentType(() => ({
     name: "Docs",
@@ -60,15 +59,6 @@ export default makeSource({
         rehypePlugins: [
             [rehypePrettycode, { theme: "github-dark" }],
             rehypeSlug,
-            [
-                rehypeAutolinkHeadings,
-                {
-                    properties: {
-                        className: ["subheading-anchor"],
-                        ariaLabel: "Link to section",
-                    },
-                },
-            ],
         ],
         remarkPlugins: [remarkGfm],
     },
