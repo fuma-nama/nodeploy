@@ -65,12 +65,12 @@ const getToc = () => (node: any, file: any) => {
     file.data = getItems(table.map, {});
 };
 
-export type TableOfContents = Items;
+export type TableOfContents = Item[];
 
 export async function getTableOfContents(
     content: string
 ): Promise<TableOfContents> {
     const result = await remark().use(getToc).process(content);
 
-    return result.data;
+    return (result.data as Items).items ?? [];
 }

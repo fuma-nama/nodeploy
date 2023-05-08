@@ -4,7 +4,7 @@ import { MdxContent } from "./mdx";
 import { Param } from "../layout";
 import type { Metadata } from "next";
 import { getTableOfContents } from "@/lib/toc";
-import { TOC } from "./toc";
+import { TOC } from "@/components/layout/toc";
 
 export default async function Page({ params }: { params: Param }) {
     const path = params.slug.join("/");
@@ -16,12 +16,6 @@ export default async function Page({ params }: { params: Param }) {
 
     const toc = await getTableOfContents(page.body.raw);
 
-    const headingIds = toc.items
-        ?.flatMap((item) => [item.url, item.items?.map((item) => item.url)])
-        .flat()
-        .filter(Boolean)
-        .map((id) => id!.split("#")[1]);
-
     return (
         <>
             <div className="flex flex-col gap-6 py-16">
@@ -31,11 +25,7 @@ export default async function Page({ params }: { params: Param }) {
             <div className="relative flex flex-col gap-3 max-xl:hidden py-16">
                 <div className="sticky top-28 flex flex-col gap-3 overflow-auto max-h-[calc(100vh-4rem-3rem)]">
                     <h3 className="font-semibold">On this page</h3>
-                    <TOC
-                        toc={toc}
-                        itemIds={headingIds ?? []}
-                        relativeUrl={page.url}
-                    />
+                    <TOC toc={toc} />
                 </div>
             </div>
         </>
