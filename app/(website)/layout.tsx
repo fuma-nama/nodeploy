@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Navbar } from "./navbar";
+import { ThemeSwitch } from "@/components/ui/theme-switch";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
@@ -18,7 +19,12 @@ function Footer() {
     return (
         <footer className="flex flex-col bg-secondary mt-auto">
             <div className="flex flex-col md:flex-row gap-3 gap-y-8 justify-between mx-auto w-full max-w-screen-lg p-10">
-                <h4 className="text-xl font-bold">Nodeploy</h4>
+                <div className="flex flex-col justify-between">
+                    <h4 className="text-xl font-bold">Nodeploy</h4>
+
+                    <ThemeSwitch />
+                </div>
+
                 <div className="flex flex-col gap-3">
                     <h5>Product</h5>
                     <Link

@@ -46,7 +46,7 @@ export default function DashboardPage() {
                 />
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
-                <div className="border-2 border-slate-800 p-6 rounded-xl flex flex-col">
+                <div className="border-2 p-6 rounded-xl flex flex-col">
                     <h2 className="text-2xl font-bold">Yearly Cost</h2>
                     <p className="text-muted-foreground mt-3">
                         You don't have to pay for these fees, we'll pay it for
@@ -55,7 +55,7 @@ export default function DashboardPage() {
 
                     <Chart data={chart_data} />
                 </div>
-                <div className="border-2 border-slate-800 p-6 rounded-xl flex flex-col">
+                <div className="border-2 p-6 rounded-xl flex flex-col">
                     <h2 className="text-2xl font-bold">Recent Deployments</h2>
                     <div className="mt-7 flex flex-col gap-7">
                         <Deployment text="Update README.md" />

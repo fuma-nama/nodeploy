@@ -24,7 +24,7 @@ import { Earth } from "./earth";
 
 const step = cva(
     [
-        "w-10 h-10 text-lg rounded-full flex flex-col items-center justify-center bg-gradient-to-br font-semibold",
+        "w-10 h-10 text-lg rounded-full flex flex-col items-center justify-center bg-gradient-to-br font-semibold text-white",
         "md:w-12 md:h-12 md:text-xl",
     ],
     {
@@ -74,7 +74,7 @@ export default function Home() {
                     height={900}
                     priority
                     className={clsx(
-                        "-z-[1] mt-40 [transform:rotate3d(0.5,0.5,0,20deg)] shadow-2xl shadow-purple-400/50 rounded-lg",
+                        "-z-[1] mt-40 dark:[transform:rotate3d(0.5,0.5,0,20deg)] shadow-2xl shadow-purple-800/50 rounded-3xl",
                         "absolute top-80 left-[50%] xl:top-20 min-[1600px]:left-[40%] w-full max-w-6xl max-sm:hidden"
                     )}
                 />
@@ -96,7 +96,12 @@ export default function Home() {
             <Promotion />
             <Deploy />
             <DeveloperExperience />
-            <div className="border-y-2 border-purple-400/30 w-full p-8 md:p-10 bg-gradient-to-b from-purple-800/10 to-purple-800/20 flex flex-col mt-40">
+            <div
+                className={clsx(
+                    "border-y-2 border-purple-400/30 w-full p-8 md:p-10 bg-gradient-to-b from-purple-100/10 to-purple-300/20 flex flex-col mt-40",
+                    "dark:from-purple-800/10 dark:to-purple-800/20"
+                )}
+            >
                 <div className="flex flex-col md:flex-row gap-6 max-w-screen-lg w-full mx-auto">
                     <Image
                         alt="image"
@@ -108,7 +113,7 @@ export default function Home() {
                         <h2 className="text-xl font-semibold">
                             DevOps is no longer a Job
                         </h2>
-                        <p className="text-sm text-purple-400">
+                        <p className="text-sm text-purple-600 dark:text-purple-400">
                             Make DevOps as confortable as riding a train
                         </p>
                         <div className="flex flex-row gap-3 mt-6">
@@ -269,7 +274,7 @@ function Promotion() {
 function Message({ children }: { children: string }) {
     return (
         <div className="relative">
-            <div className="p-3 bg-blue-500 rounded-2xl font-semibold text-sm">
+            <div className="p-3 bg-blue-500 rounded-2xl font-semibold text-sm text-white">
                 {children}
             </div>
             <svg
@@ -316,7 +321,7 @@ function Develop() {
                                 <span className="animate-pulse">|</span>
                             </code>
                         </div>
-                        <BrainCircuitIcon className="absolute -right-5 -bottom-5 rounded-full shadow-xl shadow-purple-400/50 p-2 w-20 h-20  text-purple-400" />
+                        <BrainCircuitIcon className="absolute -right-5 -bottom-5 rounded-full shadow-xl shadow-purple-400/50 p-2 w-20 h-20 text-purple-400 bg-background" />
                     </div>
                     <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
                         <h3 className="text-xl font-semibold">
@@ -498,7 +503,12 @@ function Deploy() {
 function Hero() {
     return (
         <div className="flex flex-col">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl !leading-snug text-transparent bg-clip-text bg-gradient-to-b from-white to-muted-foreground font-extrabold">
+            <h1
+                className={clsx(
+                    "text-4xl md:text-6xl lg:text-7xl !leading-snug text-transparent bg-clip-text bg-gradient-to-b from-foreground to-muted-foreground font-extrabold",
+                    "dark:from-white dark:to-muted-foreground"
+                )}
+            >
                 Not to Deploy <br />
                 Nothing to worry
             </h1>
@@ -508,12 +518,12 @@ function Hero() {
             </p>
             <div className="mt-8 flex flex-row gap-3">
                 <Link href="/dashboard">
-                    <button className="px-8 py-2 rounded-md bg-primary text-sm md:text-lg text-primary-foreground font-semibold min-h-full">
+                    <button className="px-8 py-2 rounded-md bg-primary text-sm md:text-base text-primary-foreground font-semibold min-h-full">
                         Try Now
                     </button>
                 </Link>
                 <Link href="/pricing">
-                    <button className="px-6 py-2 rounded-md bg-black border-2 border-purple-100 shadow-xl shadow-purple-400/50 text-sm md:text-lg text-white font-semibold">
+                    <button className="px-6 py-2 rounded-md bg-background border-2 border-purple-100 shadow-xl shadow-purple-400/50 text-sm md:text-base text-foreground font-semibold">
                         {`Pricing ->`}
                     </button>
                 </Link>

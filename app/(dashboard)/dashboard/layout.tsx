@@ -16,7 +16,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
 function Navbar() {
     return (
-        <nav className="w-full border-b-2 border-slate-800 bg-background overflow-x-auto">
+        <nav className="w-full border-b-2 bg-background overflow-x-auto">
             <div className="max-w-screen-2xl mx-auto w-full flex flex-row h-14 items-center gap-7 px-4 md:px-14">
                 <div className="flex flex-row gap-2 items-center flex-shrink-0">
                     <Image

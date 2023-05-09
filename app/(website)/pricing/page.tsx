@@ -40,7 +40,7 @@ function Content() {
                             "0KB Brandwidth",
                         ].map((item) => (
                             <li>
-                                <CheckIcon className="inline text-background rounded-full p-0.5 w-4 h-4 bg-white mr-2" />
+                                <CheckIcon className="inline text-background rounded-full p-0.5 w-4 h-4 bg-foreground mr-2" />
                                 {item}
                             </li>
                         ))}
@@ -64,7 +64,7 @@ function Content() {
                             "0KB Brandwidth",
                         ].map((item, i) => (
                             <li key={i}>
-                                <CheckIcon className="inline text-background rounded-full p-0.5 w-4 h-4 bg-white mr-2" />
+                                <CheckIcon className="inline text-background rounded-full p-0.5 w-4 h-4 bg-foreground mr-2" />
                                 {item}
                             </li>
                         ))}
@@ -88,7 +88,7 @@ function Content() {
                             "0KB Brandwidth",
                         ].map((item) => (
                             <li>
-                                <CheckIcon className="inline text-background rounded-full p-0.5 w-4 h-4 bg-white mr-2" />
+                                <CheckIcon className="inline text-background rounded-full p-0.5 w-4 h-4 bg-foreground mr-2" />
                                 {item}
                             </li>
                         ))}
