@@ -65,3 +65,9 @@ export function generateMetadata({ params }: { params: Param }): Metadata {
         metadataBase: absoluteUrl(),
     };
 }
+
+export async function generateStaticParams(): Promise<Param[]> {
+    return allDocs.map((docs) => ({
+        slug: docs._raw.flattenedPath.split("/"),
+    }));
+}

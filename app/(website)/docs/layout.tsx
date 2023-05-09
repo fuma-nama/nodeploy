@@ -1,4 +1,3 @@
-import { allDocs } from "@/.contentlayer/generated";
 import { ReactNode } from "react";
 import {
     SearchDialogProvider,
@@ -25,10 +24,4 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
             </div>
         </SearchDialogProvider>
     );
-}
-
-export async function generateStaticParams(): Promise<Param[]> {
-    return allDocs.map((docs) => ({
-        slug: docs._raw.flattenedPath.split("/"),
-    }));
 }

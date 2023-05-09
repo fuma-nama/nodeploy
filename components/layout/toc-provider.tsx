@@ -1,5 +1,5 @@
 "use client";
-import { ReactElement, ReactNode, useEffect, useMemo } from "react";
+import { ReactElement, ReactNode, useEffect, useMemo, useRef } from "react";
 import { createContext, useContext, useState } from "react";
 
 type ActiveAnchor = Record<
@@ -25,8 +25,8 @@ export const ActiveAnchorProvider = ({
 }): ReactElement => {
     const [activeAnchor, setActiveAnchor] = useState<ActiveAnchor>({});
 
-    const observer = useMemo(() => {
-        return new IntersectionObserver(
+    useEffect(() => {
+        const observer = new IntersectionObserver(
             (entries) => {
                 setActiveAnchor((f) => {
                     const ret = { ...f };
@@ -82,9 +82,7 @@ export const ActiveAnchorProvider = ({
                 threshold: [0, 1],
             }
         );
-    }, []);
 
-    useEffect(() => {
         for (const heading of headings) {
             const element = document.getElementById(heading);
 
@@ -93,7 +91,9 @@ export const ActiveAnchorProvider = ({
             }
         }
 
-        return;
+        return () => {
+            observer.disconnect();
+        };
     }, [headings]);
 
     return (
