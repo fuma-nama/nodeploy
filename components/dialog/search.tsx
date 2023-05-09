@@ -10,13 +10,10 @@ import {
     CommandSeparator,
 } from "../ui/command";
 import { useRouter } from "next/navigation";
-import { TreeNode } from "@/lib/generate-tree";
 import { useCallback } from "react";
 import { BookOpenIcon } from "lucide-react";
 
-export default function SearchDialog(
-    props: DialogProps & { tree: TreeNode[] }
-) {
+export default function SearchDialog(props: DialogProps) {
     const router = useRouter();
     const { search, setSearch, query } = useDocsSearch();
 

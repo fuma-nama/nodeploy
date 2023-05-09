@@ -2,7 +2,13 @@
 
 import clsx from "clsx";
 import { ChevronDownIcon, MenuIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import {
+    ReactNode,
+    createContext,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { TreeNode, FileNode, FolderNode } from "@/lib/generate-tree";
@@ -53,21 +59,46 @@ export function SidebarResponsive({ tree }: { tree: TreeNode[] }) {
     );
 }
 
+const SearchContext = createContext<{
+    setOpen: (v: boolean) => void;
+}>({
+    setOpen: () => {},
+});
+
+export function SearchDialogProvider({ children }: { children: ReactNode }) {
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        const handler = (e: KeyboardEvent) => {
+            if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+                setOpen(true);
+                e.preventDefault();
+            }
+        };
+
+        window.addEventListener("keydown", handler);
+
+        return () => {
+            window.removeEventListener("keydown", handler);
+        };
+    }, []);
+
+    return (
+        <SearchContext.Provider value={{ setOpen }}>
+            {open && <SearchDialog open onOpenChange={setOpen} />}
+            {children}
+        </SearchContext.Provider>
+    );
+}
+
 function List({ items }: { items: TreeNode[] }) {
-    const [openSearch, setOpenSearch] = useState(false);
+    const { setOpen } = useContext(SearchContext);
 
     return (
         <div className="flex flex-col gap-3">
-            {openSearch && (
-                <SearchDialog
-                    open
-                    onOpenChange={(v) => setOpenSearch(v)}
-                    tree={items}
-                />
-            )}
             <button
                 className="flex flex-row items-center border-[1px] rounded-md text-muted-foreground cursor-pointer px-4 py-2 text-left text-sm"
-                onClick={() => setOpenSearch((prev) => !prev)}
+                onClick={() => setOpen(true)}
             >
                 Search Docs...
                 <CommandShortcut className="ml-auto">⌘K</CommandShortcut>
