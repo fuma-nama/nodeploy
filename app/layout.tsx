@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { absoluteUrl } from "../lib/absolute-url";
 import type { Metadata } from "next";
 
 import "@/styles/globals.css";
@@ -26,12 +27,14 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         creator: "@money_is_shark",
+        title: {
+            template: "%s | No Deploy",
+            default: "No Deploy",
+        },
+        description: "The hosting platform that supports Nothing",
         images: "/banner.png",
     },
-    metadataBase:
-        process.env.VERCEL_URL != null
-            ? new URL(`https://${process.env.VERCEL_URL}`)
-            : new URL(`http://localhost:${process.env.PORT || 3000}`),
+    metadataBase: absoluteUrl(),
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

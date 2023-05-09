@@ -6,7 +6,8 @@ import type { Metadata } from "next";
 import { getTableOfContents } from "@/lib/get-toc";
 import { TOC } from "@/components/layout/toc";
 import { Breadcrumb } from "@/components/layout/breadcrumb";
-import { getPageTree } from "@/lib/cache";
+import { getPageTree } from "@/lib/page-tree";
+import { absoluteUrl } from "@/lib/absolute-url";
 
 export default async function Page({ params }: { params: Param }) {
     const path = (params.slug ?? []).join("/");
@@ -42,7 +43,25 @@ export function generateMetadata({ params }: { params: Param }): Metadata {
     const path = (params.slug ?? []).join("/");
     const page = allDocs.find((page) => page._raw.flattenedPath === path);
 
+    if (page == null) return {};
+
     return {
-        title: page?.title,
+        title: page.title,
+        description: "The hosting platform that supports Nothing",
+        openGraph: {
+            url: "https://nodeploy-neon.vercel.app",
+            title: page.title,
+            description: "The hosting platform that supports Nothing",
+            images: "/banner.png",
+            siteName: "No Deploy",
+        },
+        twitter: {
+            card: "summary_large_image",
+            creator: "@money_is_shark",
+            title: page.title,
+            description: "The hosting platform that supports Nothing",
+            images: "/banner.png",
+        },
+        metadataBase: absoluteUrl(),
     };
 }

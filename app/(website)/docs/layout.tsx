@@ -5,7 +5,7 @@ import {
     Sidebar,
     SidebarResponsive,
 } from "@/components/layout/sidebar";
-import { getPageTree } from "@/lib/cache";
+import { getPageTree } from "@/lib/page-tree";
 
 export type Param = {
     slug?: string[];

@@ -2,9 +2,26 @@ import { CheckIcon } from "lucide-react";
 import { Card } from "./card";
 import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
+import { absoluteUrl } from "@/lib/absolute-url";
 
 export const metadata: Metadata = {
     title: "Pricing",
+    description: "The Pricing of No Deploy",
+    openGraph: {
+        title: "Pricing",
+        description: "The Pricing of No Deploy",
+        url: "https://nodeploy-neon.vercel.app",
+        images: "/banner.png",
+        siteName: "No Deploy",
+    },
+    twitter: {
+        title: "Pricing",
+        description: "The Pricing of No Deploy",
+        card: "summary_large_image",
+        creator: "@money_is_shark",
+        images: "/banner.png",
+    },
+    metadataBase: absoluteUrl(),
 };
 
 export default function PricingPage() {
