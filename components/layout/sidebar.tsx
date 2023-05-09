@@ -6,8 +6,22 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { TreeNode, FileNode, FolderNode } from "@/lib/generate-tree";
+import dynamic from "next/dynamic";
+import { CommandShortcut } from "../ui/command";
+
+const SearchDialog = dynamic(() => import("@/components/dialog/search"));
 
 export function Sidebar({ tree }: { tree: TreeNode[] }) {
+    return (
+        <div className="relative max-lg:hidden">
+            <div className="flex flex-col gap-3 sticky top-12 overflow-auto max-h-[calc(100vh-3rem)] py-16">
+                <List items={tree} />
+            </div>
+        </div>
+    );
+}
+
+export function SidebarResponsive({ tree }: { tree: TreeNode[] }) {
     const [open, setOpen] = useState(false);
     const pathname = usePathname();
 
@@ -16,10 +30,10 @@ export function Sidebar({ tree }: { tree: TreeNode[] }) {
     }, [pathname]);
 
     return (
-        <>
+        <div className="sticky inset-x-0 top-12 z-50 max-h lg:hidden overflow-hidden">
             <button
                 className={clsx(
-                    "fixed w-full inset-x-0 h-12 bg-background border-b-[1px] z-50 px-8 sm:px-14 lg:hidden",
+                    "w-full h-10 bg-background border-b-[1px] px-8 sm:px-14",
                     "flex flex-row gap-2 items-center text-sm"
                 )}
                 onClick={() => setOpen((prev) => !prev)}
@@ -29,29 +43,47 @@ export function Sidebar({ tree }: { tree: TreeNode[] }) {
             </button>
             <div
                 className={clsx(
-                    "relative",
-                    "max-lg:fixed max-lg:p-8 max-lg:overflow-auto max-lg:sm:p-14 max-lg:top-24 max-lg:inset-0 max-lg: max-lg:backdrop-blur-xl max-lg:z-50 max-lg:bg-background/50",
-                    open ? "block" : "max-lg:hidden"
+                    "p-8 sm:p-14 overflow-auto backdrop-blur-xl bg-background/70 max-h-[calc(100vh-5.5rem)]",
+                    open ? "block" : "hidden"
                 )}
             >
-                <div
-                    className={clsx(
-                        "flex flex-col gap-3",
-                        "lg:sticky lg:top-12 lg:overflow-auto lg:max-h-[calc(100vh-3rem)] lg:py-16"
-                    )}
-                >
-                    {tree.map((item, i) => (
-                        <Node key={i} item={item} />
-                    ))}
-                </div>
+                <List items={tree} />
             </div>
-        </>
+        </div>
+    );
+}
+
+function List({ items }: { items: TreeNode[] }) {
+    const [openSearch, setOpenSearch] = useState(false);
+
+    return (
+        <div className="flex flex-col gap-3">
+            {openSearch && (
+                <SearchDialog
+                    open
+                    onOpenChange={(v) => setOpenSearch(v)}
+                    tree={items}
+                />
+            )}
+            <button
+                className="flex flex-row items-center border-[1px] rounded-md text-muted-foreground cursor-pointer px-4 py-2 text-left text-sm"
+                onClick={() => setOpenSearch((prev) => !prev)}
+            >
+                Search Docs...
+                <CommandShortcut className="ml-auto">⌘K</CommandShortcut>
+            </button>
+            {items.map((item, i) => (
+                <Node key={i} item={item} />
+            ))}
+        </div>
     );
 }
 
 function Node({ item }: { item: TreeNode }) {
     if (item.type === "separator")
-        return <p className="font-semibold text-sm">{item.name}</p>;
+        return (
+            <p className="font-semibold text-sm mt-3 first:mt-0">{item.name}</p>
+        );
     if (item.type === "folder") return <Folder item={item} />;
 
     return <Item item={item} />;
@@ -69,7 +101,7 @@ function Item({ item }: { item: FileNode }) {
                 "text-sm w-full",
                 active
                     ? "text-purple-400 font-semibold"
-                    : "text-muted-foreground"
+                    : "text-muted-foreground hover:text-foreground"
             )}
         >
             {name}
@@ -87,10 +119,10 @@ function Folder({ item }: { item: FolderNode }) {
     );
 
     const styles = clsx(
-        "text-sm text-muted-foreground flex flex-row justify-between cursor-pointer",
-        {
-            "font-semibold rounded-xl text-purple-400": active,
-        }
+        "text-sm flex flex-row justify-between cursor-pointer",
+        active
+            ? "font-semibold rounded-xl text-purple-400"
+            : "text-muted-foreground hover:text-foreground"
     );
 
     const icon = (
@@ -133,7 +165,7 @@ function Folder({ item }: { item: FolderNode }) {
                             <li
                                 key={i}
                                 className={clsx(
-                                    "flex pl-4 py-1 border-l-2 border-border",
+                                    "flex pl-4 py-1.5 border-l-2 border-border",
                                     active
                                         ? "border-purple-400"
                                         : "border-border"
