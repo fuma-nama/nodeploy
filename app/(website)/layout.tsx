@@ -46,8 +46,7 @@ function Footer() {
                 <div className="flex flex-col gap-3">
                     <h5>Explore</h5>
                     <Link
-                        href="https://youtu.be/dQw4w9WgXcQ"
-                        target="_blank"
+                        href="/docs"
                         className="text-sm text-muted-foreground"
                     >
                         Documentation

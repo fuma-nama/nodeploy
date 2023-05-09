@@ -18,7 +18,7 @@ export function Navbar() {
                 <h4 className="font-semibold text-lg font-mono">No Deploy</h4>
             </Link>
             <div className="flex flex-row gap-12 items-center text-sm max-lg:hidden">
-                <Item href="https://youtu.be/dQw4w9WgXcQ">Docs</Item>
+                <Item href="/docs">Docs</Item>
                 <Item href="/pricing">Pricing</Item>
                 <Item href="https://youtu.be/dQw4w9WgXcQ">Blog</Item>
                 <Item href="https://youtu.be/dQw4w9WgXcQ">Showcase</Item>
