@@ -43,7 +43,7 @@ function Item({ href, children }: { href: string; children: string }) {
         <Link
             href={href}
             className={
-                pathname === href
+                pathname.startsWith(href)
                     ? "font-semibold text-foreground"
                     : "text-muted-foreground"
             }
