@@ -1,4 +1,5 @@
 "use client";
+import clsx from "clsx";
 import { Docs } from "contentlayer/generated";
 import { CheckIcon, CopyIcon, LinkIcon } from "lucide-react";
 import { useMDXComponent } from "next-contentlayer/hooks";
@@ -13,12 +14,11 @@ import {
 
 function heading<T extends keyof JSX.IntrinsicElements>(
     element: T,
-    className: string,
     { id, children, ...props }: ComponentProps<T>
 ) {
     return createElement(element, {
         ...props,
-        className: `group font-bold ${className}`,
+        className: clsx(`group`, props.className),
         children: [
             <span id={id} className="absolute -mt-20" />,
             children,
@@ -38,32 +38,31 @@ export function MdxContent({ docs }: { docs: Docs }) {
     return (
         <MDX
             components={{
-                h1: (props) => heading("h1", "text-4xl", props),
-                h2: (props) => heading("h2", "text-3xl", props),
-                h3: (props) => heading("h3", "text-2xl", props),
-                h4: (props) => heading("h4", "text-xl", props),
-                h5: (props) => heading("h5", "text-lg", props),
-                h6: (props) => heading("h6", "test-base", props),
+                h1: (props) => heading("h1", props),
+                h2: (props) => heading("h2", props),
+                h3: (props) => heading("h3", props),
+                h4: (props) => heading("h4", props),
+                h5: (props) => heading("h5", props),
+                h6: (props) => heading("h6", props),
                 pre: (props) => {
                     const ref = useRef<HTMLPreElement>(null);
+                    const onCopy = () => {
+                        if (
+                            ref.current == null ||
+                            ref.current.textContent == null
+                        )
+                            return;
+
+                        navigator.clipboard.writeText(ref.current.textContent);
+                    };
 
                     return (
-                        <pre {...props} ref={ref} className="relative">
-                            <CopyButton
-                                onCopy={() => {
-                                    if (
-                                        ref.current == null ||
-                                        ref.current.textContent == null
-                                    )
-                                        return;
-
-                                    navigator.clipboard.writeText(
-                                        ref.current.textContent
-                                    );
-                                }}
-                            />
-                            {props.children}
-                        </pre>
+                        <div className="relative">
+                            <CopyButton onCopy={onCopy} />
+                            <pre {...props} ref={ref}>
+                                {props.children}
+                            </pre>
+                        </div>
                     );
                 },
                 a: ({ href, ref, ...props }) => {
@@ -79,18 +78,9 @@ export function MdxContent({ docs }: { docs: Docs }) {
                             href={href}
                             target={isExternalUrl ? "_blank" : "_self"}
                             rel={isExternalUrl ? "noreferrer" : undefined}
-                            className="text-purple-400 underline"
                         />
                     );
                 },
-                code: (props) => (
-                    <code
-                        {...props}
-                        className="p-3 rounded-xl border-[1px] bg-secondary overflow-x-auto"
-                    >
-                        {props.children}
-                    </code>
-                ),
             }}
         />
     );

@@ -22,11 +22,13 @@ export default async function Page({ params }: { params: Param }) {
 
     return (
         <>
-            <div className="flex flex-col gap-6 py-8 lg:py-16">
+            <article className="flex flex-col gap-6 py-8 lg:py-16">
                 <Breadcrumb tree={tree} />
                 <h1 className="text-4xl font-bold">{page.title}</h1>
-                <MdxContent docs={page} />
-            </div>
+                <div className="prose prose-text prose-pre:grid prose-pre:border-[1px] prose-code:bg-secondary prose-code:p-1 max-w-none">
+                    <MdxContent docs={page} />
+                </div>
+            </article>
             <div className="relative flex flex-col gap-3 max-xl:hidden py-16">
                 <div className="sticky top-28 flex flex-col gap-3 overflow-auto max-h-[calc(100vh-4rem-3rem)]">
                     {toc.length > 0 && (
