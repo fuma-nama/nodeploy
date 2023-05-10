@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: Param }) {
 
     return (
         <>
-            <div className="flex flex-col gap-6 py-16">
+            <div className="flex flex-col gap-6 py-8 lg:py-16">
                 <Breadcrumb tree={tree} />
                 <h1 className="text-4xl font-bold">{page.title}</h1>
                 <MdxContent docs={page} />
