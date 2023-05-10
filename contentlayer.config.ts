@@ -61,7 +61,12 @@ export default makeSource({
     documentTypes: [Docs, Meta],
     mdx: {
         rehypePlugins: [
-            [rehypePrettycode, { theme: "github-dark" }],
+            [
+                rehypePrettycode,
+                {
+                    theme: "css-variables",
+                },
+            ],
             rehypeSlug,
         ],
         remarkPlugins: [remarkGfm],

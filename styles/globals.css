@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./codeblock.css";
+
 @layer base {
     :root {
         --background: 0 0% 100%;
