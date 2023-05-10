@@ -17,61 +17,33 @@ import { CommandShortcut } from "../ui/command";
 
 const SearchDialog = dynamic(() => import("@/components/dialog/search"));
 
-export function Sidebar({ tree }: { tree: TreeNode[] }) {
-    return (
-        <div className="relative max-lg:hidden">
-            <div className="flex flex-col gap-3 sticky top-12 overflow-auto max-h-[calc(100vh-3rem)] py-16">
-                <List items={tree} />
-            </div>
-        </div>
-    );
-}
+const SidebarContext = createContext({
+    open: false,
+    setOpenSearch: (v: boolean) => {},
+});
 
-export function SidebarResponsive({ tree }: { tree: TreeNode[] }) {
+export function SidebarProvider({ children }: { children: ReactNode }) {
     const [open, setOpen] = useState(false);
+    const [openSearch, setOpenSearch] = useState(false);
+
     const pathname = usePathname();
 
     useEffect(() => {
         setOpen(false);
     }, [pathname]);
 
-    return (
-        <div className="sticky inset-x-0 top-12 z-50 max-h lg:hidden overflow-hidden">
-            <button
-                className={clsx(
-                    "w-full h-10 bg-background border-b-[1px] px-8 sm:px-14",
-                    "flex flex-row gap-2 items-center text-sm"
-                )}
-                onClick={() => setOpen((prev) => !prev)}
-            >
-                <MenuIcon className="w-4 h-4" />
-                Menu
-            </button>
-            <div
-                className={clsx(
-                    "p-8 sm:p-14 overflow-auto backdrop-blur-xl bg-background/70 max-h-[calc(100vh-5.5rem)]",
-                    open ? "block" : "hidden"
-                )}
-            >
-                <List items={tree} />
-            </div>
-        </div>
-    );
-}
-
-const SearchContext = createContext<{
-    setOpen: (v: boolean) => void;
-}>({
-    setOpen: () => {},
-});
-
-export function SearchDialogProvider({ children }: { children: ReactNode }) {
-    const [open, setOpen] = useState(false);
+    useEffect(() => {
+        if (open) {
+            document.body.classList.add("max-lg:overflow-hidden");
+        } else {
+            document.body.classList.remove("max-lg:overflow-hidden");
+        }
+    }, [open]);
 
     useEffect(() => {
         const handler = (e: KeyboardEvent) => {
             if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-                setOpen(true);
+                setOpenSearch(true);
                 e.preventDefault();
             }
         };
@@ -84,21 +56,39 @@ export function SearchDialogProvider({ children }: { children: ReactNode }) {
     }, []);
 
     return (
-        <SearchContext.Provider value={{ setOpen }}>
-            {open && <SearchDialog open onOpenChange={setOpen} />}
+        <SidebarContext.Provider value={{ open, setOpenSearch }}>
+            <button
+                className={clsx(
+                    "w-full h-8 bg-background border-b-[1px] px-8 sm:px-14",
+                    "flex flex-row gap-2 items-center text-sm",
+                    "sticky inset-x-0 top-12 z-50 lg:hidden"
+                )}
+                onClick={() => setOpen((prev) => !prev)}
+            >
+                <MenuIcon className="w-4 h-4" />
+                Menu
+            </button>
+            {openSearch && <SearchDialog open onOpenChange={setOpenSearch} />}
             {children}
-        </SearchContext.Provider>
+        </SidebarContext.Provider>
     );
 }
 
-function List({ items }: { items: TreeNode[] }) {
-    const { setOpen } = useContext(SearchContext);
+export function SidebarList({ items }: { items: TreeNode[] }) {
+    const { open, setOpenSearch } = useContext(SidebarContext);
 
     return (
-        <div className="flex flex-col gap-3">
+        <aside
+            className={clsx(
+                "flex flex-col gap-3 fixed inset-0 top-20 overflow-auto",
+                "lg:sticky lg:top-12 lg:py-16 lg:max-h-[calc(100vh-3rem)]",
+                "max-lg:py-4 max-lg:px-8 max-lg:sm:px-14 max-lg:bg-background/50 max-lg:backdrop-blur-xl max-lg:z-50",
+                !open && "max-lg:hidden"
+            )}
+        >
             <button
                 className="flex flex-row items-center border-[1px] rounded-md text-muted-foreground cursor-pointer px-4 py-2 text-left text-sm"
-                onClick={() => setOpen(true)}
+                onClick={() => setOpenSearch(true)}
             >
                 Search Docs...
                 <CommandShortcut className="ml-auto">⌘K</CommandShortcut>
@@ -106,7 +96,7 @@ function List({ items }: { items: TreeNode[] }) {
             {items.map((item, i) => (
                 <Node key={i} item={item} />
             ))}
-        </div>
+        </aside>
     );
 }
 
