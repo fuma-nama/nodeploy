@@ -1,5 +1,5 @@
 "use client";
-import { ReactElement, ReactNode, useEffect, useMemo, useRef } from "react";
+import { ReactElement, ReactNode, useEffect } from "react";
 import { createContext, useContext, useState } from "react";
 
 type ActiveAnchor = Record<
