@@ -135,9 +135,14 @@ function Folder({ item }: { item: FolderNode }) {
 
     const pathname = usePathname();
     const active = pathname === item.url;
-    const [extend, setExtend] = useState(
-        () => active || pathname.startsWith(item.url + "/")
-    );
+    const childActive = pathname.startsWith(item.url + "/");
+    const [extend, setExtend] = useState(active || childActive);
+
+    useEffect(() => {
+        if (childActive) {
+            setExtend(true);
+        }
+    }, [childActive]);
 
     const styles = clsx(
         "text-sm flex flex-row justify-between cursor-pointer",
