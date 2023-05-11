@@ -1,12 +1,12 @@
-"use client";
-import { Card, Cards } from "@/components/mdx/card";
 import clsx from "clsx";
 import { Docs } from "contentlayer/generated";
 import { LinkIcon } from "lucide-react";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import Link from "next/link";
 import { ComponentProps, createElement } from "react";
-import { Pre } from "./mdx-components";
+
+import { Card, Cards } from "@/components/mdx/card";
+import { Pre } from "@/components/mdx/pre";
 
 function heading<T extends keyof JSX.IntrinsicElements>(
     element: T,
@@ -34,13 +34,15 @@ export function MdxContent({ docs }: { docs: Docs }) {
     return (
         <MDX
             components={{
+                Card: Card,
+                Cards: Cards,
+                pre: (props) => <Pre {...props} />,
                 h1: (props) => heading("h1", props),
                 h2: (props) => heading("h2", props),
                 h3: (props) => heading("h3", props),
                 h4: (props) => heading("h4", props),
                 h5: (props) => heading("h5", props),
                 h6: (props) => heading("h6", props),
-                pre: Pre,
                 a: ({ href, ref, ...props }) => {
                     if (href == null) return <></>;
 
@@ -57,8 +59,6 @@ export function MdxContent({ docs }: { docs: Docs }) {
                         />
                     );
                 },
-                Card,
-                Cards,
             }}
         />
     );

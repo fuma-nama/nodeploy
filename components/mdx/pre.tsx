@@ -1,7 +1,6 @@
 "use client";
-
 import { CheckIcon, CopyIcon } from "lucide-react";
-import { ComponentProps, useEffect, useRef, useState } from "react";
+import { ComponentProps, useRef, useState, useEffect } from "react";
 
 export function Pre(props: ComponentProps<"pre">) {
     const ref = useRef<HTMLPreElement>(null);
