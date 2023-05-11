@@ -1,6 +1,5 @@
 "use client";
 
-import clsx from "clsx";
 import { CheckIcon, CopyIcon } from "lucide-react";
 import { ComponentProps, useEffect, useRef, useState } from "react";
 
@@ -13,10 +12,12 @@ export function Pre(props: ComponentProps<"pre">) {
     };
 
     return (
-        <pre {...props} ref={ref} className={clsx("relative", props.className)}>
+        <div className="relative">
             <CopyButton onCopy={onCopy} />
-            {props.children}
-        </pre>
+            <pre {...props} ref={ref}>
+                {props.children}
+            </pre>
+        </div>
     );
 }
 
@@ -42,7 +43,7 @@ function CopyButton({ onCopy }: { onCopy: () => void }) {
 
     return (
         <button
-            className="absolute top-0 right-0 p-2 bg-secondary text-secondary-foreground border-[1px] rounded-md"
+            className="absolute top-1 right-1 p-2 bg-secondary text-secondary-foreground border-[1px] rounded-md"
             onClick={onClick}
         >
             {checked ? (
