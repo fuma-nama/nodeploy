@@ -10,8 +10,13 @@ export const Docs = defineDocumentType(() => ({
     fields: {
         title: {
             type: "string",
-            description: "The title of the post",
+            description: "The title of the document",
             required: true,
+        },
+        description: {
+            type: "string",
+            description: "The description of the document",
+            required: false,
         },
     },
     computedFields: {

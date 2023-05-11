@@ -47,13 +47,16 @@ export function generateMetadata({ params }: { params: Param }): Metadata {
 
     if (page == null) return {};
 
+    const description =
+        page.description ?? "The hosting platform that supports Nothing";
+
     return {
         title: page.title,
-        description: "The hosting platform that supports Nothing",
+        description: description,
         openGraph: {
             url: "https://nodeploy-neon.vercel.app",
             title: page.title,
-            description: "The hosting platform that supports Nothing",
+            description: description,
             images: "/banner.png",
             siteName: "No Deploy",
         },
@@ -61,7 +64,7 @@ export function generateMetadata({ params }: { params: Param }): Metadata {
             card: "summary_large_image",
             creator: "@money_is_shark",
             title: page.title,
-            description: "The hosting platform that supports Nothing",
+            description: description,
             images: "/banner.png",
         },
         metadataBase: absoluteUrl(),
