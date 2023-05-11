@@ -14,6 +14,7 @@ import { usePathname } from "next/navigation";
 import type { TreeNode, FileNode, FolderNode } from "@/lib/generate-tree";
 import dynamic from "next/dynamic";
 import { CommandShortcut } from "../ui/command";
+import { MouseEvent } from "react";
 
 const SearchDialog = dynamic(() => import("@/components/dialog/search"));
 
@@ -138,12 +139,6 @@ function Folder({ item }: { item: FolderNode }) {
     const childActive = pathname.startsWith(item.url + "/");
     const [extend, setExtend] = useState(active || childActive);
 
-    useEffect(() => {
-        if (childActive) {
-            setExtend(true);
-        }
-    }, [childActive]);
-
     const styles = clsx(
         "text-sm flex flex-row justify-between cursor-pointer",
         active
@@ -162,10 +157,18 @@ function Folder({ item }: { item: FolderNode }) {
         />
     );
 
-    const onClick = () => {
-        setExtend((prev) =>
-            prev && (item.index == null || active) ? false : true
-        );
+    useEffect(() => {
+        if (active || childActive) {
+            setExtend(true);
+        }
+    }, [active, childActive]);
+
+    const onClick = (e: MouseEvent) => {
+        if (item.index == null || active) {
+            setExtend((prev) => !prev);
+            e.stopPropagation();
+            e.preventDefault();
+        }
     };
 
     return (
@@ -181,28 +184,29 @@ function Folder({ item }: { item: FolderNode }) {
                     {icon}
                 </Link>
             )}
-            {extend && (
-                <ul className="flex flex-col mt-3">
-                    {children.map((item, i) => {
-                        const active =
-                            item.type !== "separator" && pathname === item.url;
+            <ul
+                className={clsx(
+                    "flex-col mt-3 transition-all overflow-hidden",
+                    extend ? "flex" : "hidden"
+                )}
+            >
+                {children.map((item, i) => {
+                    const active =
+                        item.type !== "separator" && pathname === item.url;
 
-                        return (
-                            <li
-                                key={i}
-                                className={clsx(
-                                    "flex pl-4 py-1.5 border-l-2 border-border",
-                                    active
-                                        ? "border-purple-400"
-                                        : "border-border"
-                                )}
-                            >
-                                <Node item={item} />
-                            </li>
-                        );
-                    })}
-                </ul>
-            )}
+                    return (
+                        <li
+                            key={i}
+                            className={clsx(
+                                "flex pl-4 py-1.5 border-l-2 border-border",
+                                active ? "border-purple-400" : "border-border"
+                            )}
+                        >
+                            <Node item={item} />
+                        </li>
+                    );
+                })}
+            </ul>
         </div>
     );
 }
