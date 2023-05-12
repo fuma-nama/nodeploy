@@ -64,7 +64,7 @@ const iconBox = cva([
 export default function Home() {
     return (
         <>
-            <div className="relative flex flex-col justify-center overflow-hidden mx-auto w-full max-w-[2000px] z-[2] p-8 sm:p-14 xl:p-24 min-h-[75vh]">
+            <div className="relative flex flex-col justify-center overflow-hidden max-w-wide w-full mx-auto z-[2] p-8 sm:p-14 xl:p-24 min-h-[75vh]">
                 <Hero />
                 <Image
                     alt="image"
@@ -365,7 +365,7 @@ function Develop() {
                                 Deleting Codebase...
                             </h4>
                             <p className="text-muted-foreground text-sm">
-                                Cleaning your brain - 85%
+                                Cleaning your brain - 50%
                             </p>
                             <div className="mt-6 rounded-full h-3 w-full overflow-hidden bg-background">
                                 <div className="w-[50%] h-full bg-purple-400" />
@@ -463,7 +463,7 @@ function Deploy() {
                     servers
                 </p>
 
-                <div className="w-full max-w-screen-2xl grid grid-cols-1 md:grid-cols-2 mt-16 text-start z-[2] relative">
+                <div className="w-full max-w-screen-wide grid grid-cols-1 md:grid-cols-2 mt-16 text-start z-[2] relative">
                     <div className="flex flex-col gap-3 items-end max-md:absolute max-md:top-0 max-md:right-0">
                         <Earth
                             className="-mr-10 -mt-16"
@@ -557,8 +557,8 @@ function Hero() {
         <div className="flex flex-col">
             <h1
                 className={clsx(
-                    "text-4xl md:text-6xl lg:text-7xl !leading-snug text-transparent bg-clip-text bg-gradient-to-b from-foreground to-muted-foreground font-extrabold",
-                    "dark:from-white dark:to-muted-foreground"
+                    "text-4xl md:text-6xl !leading-snug text-transparent bg-clip-text bg-gradient-to-b from-black to-purple-600 font-extrabold",
+                    "dark:from-white dark:to-purple-600"
                 )}
             >
                 Not to Deploy <br />
