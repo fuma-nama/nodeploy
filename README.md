@@ -38,7 +38,7 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 
 #### Contribute to our Documentation
 
-We have very less rules on what content you contributed:
+We have very few rules on what content you contributed:
 
 1. No porn and racism content
 2. No XSS attacks or dangerous content
@@ -59,4 +59,4 @@ To create a new page in docs, you have to edit or create `meta.json` for each fo
 
 #### Contribute to our Blog
 
-Our blog is currently in Beta, You can still your own post there, we are welcome for any contributions
+Our blog is currently in Beta, You can still create your own post there, we are welcome for any contributions
