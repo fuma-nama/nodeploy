@@ -16,6 +16,11 @@ module.exports = {
             },
         },
         extend: {
+            maxWidth: {
+                wide: "1800px",
+                wider: "1500px",
+                normal: "1300px",
+            },
             backgroundImage: {
                 "gradient-radial":
                     "radial-gradient(circle, var(--tw-gradient-stops))",

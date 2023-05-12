@@ -32,15 +32,7 @@ export const metadata: Metadata = {
 
 export default function PricingPage() {
     return (
-        <div className="flex flex-col p-8 py-16 sm:px-14 xl:p-24 mb-20">
-            <Content />
-        </div>
-    );
-}
-
-function Content() {
-    return (
-        <div className="flex flex-col gap-3 mx-auto w-full max-w-screen-2xl">
+        <div className="flex flex-col gap-3 mx-auto w-full p-8 py-16 sm:px-14 xl:p-24 max-w-normal">
             <h1 className="text-4xl font-bold">
                 Best Pricing for your Solution
             </h1>
