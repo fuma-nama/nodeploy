@@ -350,8 +350,8 @@ function Develop() {
                     slow you down, just imagine how your app works in your brain
                 </p>
                 <div className="w-full max-w-screen-lg grid grid-cols-1 md:grid-cols-2 mt-16 text-start gap-10">
-                    <div className="flex flex-col relative h-fit">
-                        <div className="rounded-xl border-2 border-border shadow-lg shadow-purple-800/50 flex flex-col w-full">
+                    <div className="flex flex-col">
+                        <div className="rounded-2xl border-2 border-border shadow-xl shadow-purple-600/50 flex flex-col mr-10">
                             <div className="border-b-2 border-border p-4 font-semibold">
                                 Terminal
                             </div>
@@ -360,7 +360,17 @@ function Develop() {
                                 <span className="animate-pulse">|</span>
                             </code>
                         </div>
-                        <BrainCircuitIcon className="absolute -right-5 -bottom-5 rounded-full shadow-xl shadow-purple-400/50 p-2 w-20 h-20 text-purple-400 bg-background" />
+                        <div className="rounded-2xl bg-secondary text-secondary-foreground p-4 flex flex-col items-center text-center -mt-10 ml-10 shadow-xl">
+                            <h4 className="font-semibold text-base lg:text-lg">
+                                Deleting Codebase...
+                            </h4>
+                            <p className="text-muted-foreground text-sm">
+                                Cleaning your brain - 85%
+                            </p>
+                            <div className="mt-6 rounded-full h-3 w-full overflow-hidden bg-background">
+                                <div className="w-[50%] h-full bg-purple-400" />
+                            </div>
+                        </div>
                     </div>
                     <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
                         <CodeIcon className="w-14 h-14 border-2 border-border shadow-lg shadow-purple-400/50 bg-secondary rounded-2xl p-3 text-purple-400" />
