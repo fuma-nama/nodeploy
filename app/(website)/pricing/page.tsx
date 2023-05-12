@@ -3,6 +3,12 @@ import { Card } from "./card";
 import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
 import { absoluteUrl } from "@/lib/absolute-url";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export const metadata: Metadata = {
     title: "Pricing",
@@ -115,6 +121,47 @@ function Content() {
                     </Button>
                 </Card>
             </div>
+
+            <h2 className="mt-6 text-2xl font-bold">FAQ</h2>
+            <Accordion type="single" collapsible>
+                <AccordionItem value="money">
+                    <AccordionTrigger>
+                        Do we need to pay money to No Deploy?
+                    </AccordionTrigger>
+                    <AccordionContent>
+                        No, you don't have to pay to any costs. No Deploy will
+                        pay all the costs for you since your code hadn't
+                        deployed to anywhere
+                    </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="over-limit">
+                    <AccordionTrigger>
+                        What should I do if I went over my limit?
+                    </AccordionTrigger>
+                    <AccordionContent>
+                        Since we hope developers don't have to worry about
+                        anything. Nothing will be affected after going over your
+                        limit
+                    </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="usage">
+                    <AccordionTrigger>
+                        How does the usage being calculated?
+                    </AccordionTrigger>
+                    <AccordionContent>
+                        We don't calculate your usage, because we have no limit
+                        on anything
+                    </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="change-plan">
+                    <AccordionTrigger>
+                        How do I upgrade or downgrade to another plan?
+                    </AccordionTrigger>
+                    <AccordionContent>
+                        You can delete your account and create another one
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
         </div>
     );
 }
