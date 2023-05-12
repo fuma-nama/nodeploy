@@ -55,7 +55,6 @@ const comments = [
         message: "How do you implement real-time messaging?",
     },
 ];
-
 const iconBox = cva([
     "relative rounded-md w-fit h-fit p-3",
     'before:content-[""] before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-br before:from-border before:via-white/50 before:to-border',
@@ -95,6 +94,13 @@ export default function Home() {
             <Develop />
             <Promotion />
             <Deploy />
+            <OpenSource />
+            <div
+                className={clsx(
+                    "h-20 bg-gradient-to-r from-purple-300  to-green-300 [mask-image:linear-gradient(to_bottom,white,transparent)]",
+                    "dark:from-purple-600/50 dark:to-green-600/50"
+                )}
+            />
             <DeveloperExperience />
             <div
                 className={clsx(
@@ -128,6 +134,33 @@ export default function Home() {
     );
 }
 
+function OpenSource() {
+    return (
+        <div className="p-8 sm:p-14 xl:px-24 flex flex-row justify-between max-w-screen-lg mx-auto w-full">
+            <div className="flex flex-col gap-3">
+                <h2 className="text-xl md:text-3xl font-bold text-foreground">
+                    We love Open Source
+                </h2>
+                <p className="text-muted-foreground">
+                    No Deploy is fully open-source on Github
+                </p>
+                <div className="flex flex-row">
+                    <Link
+                        href="https://github.com/SonMooSans/nodeploy"
+                        target="_blank"
+                        className="px-8 py-2 mt-4 text-sm md:text-base font-semibold rounded-md bg-primary text-primary-foreground"
+                    >
+                        {"View Github ->"}
+                    </Link>
+                </div>
+            </div>
+            <div className="max-md:hidden">
+                <GithubIcon className="w-32 h-32" />
+            </div>
+        </div>
+    );
+}
+
 function DeveloperExperience() {
     return (
         <div className="p-8 sm:px-14 xl:px-24 text-center flex flex-col items-center gap-3 mt-40 overflow-hidden">
@@ -139,11 +172,17 @@ function DeveloperExperience() {
                 Enhanced DX
             </h2>
             <p className="text-muted-foreground text-lg max-w-xl">
-                All features, frameworks and programming languages isn't
-                supported by default with zero configuration
+                All features, frameworks and programming languages that run in
+                your mind are supported natively
             </p>
+            <Link
+                href="/docs"
+                className="px-8 py-2 mt-4 text-sm md:text-base font-semibold rounded-md bg-primary text-primary-foreground"
+            >
+                Explore More
+            </Link>
             <div className="w-full max-w-screen-lg grid grid-cols-1 md:grid-cols-2 mt-16 text-start gap-x-6 gap-y-14">
-                <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
+                <div className="flex flex-col gap-3 max-md:text-center max-md:items-center md:border-[1px] md:p-8 md:rounded-lg">
                     <div className={iconBox()}>
                         <CodeIcon />
                     </div>
@@ -153,7 +192,7 @@ function DeveloperExperience() {
                         Don't support Next.js, Svelte Kit and Remix
                     </p>
                 </div>
-                <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
+                <div className="flex flex-col gap-3 max-md:text-center max-md:items-center md:border-[1px] md:p-8 md:rounded-lg">
                     <div className={iconBox()}>
                         <ServerIcon />
                     </div>
@@ -162,7 +201,7 @@ function DeveloperExperience() {
                         From Java, Rust to Go, we don't handle any of them
                     </p>
                 </div>
-                <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
+                <div className="flex flex-col gap-3 max-md:text-center max-md:items-center md:border-[1px] md:p-8 md:rounded-lg">
                     <div className={iconBox()}>
                         <DatabaseIcon />
                     </div>
@@ -171,7 +210,7 @@ function DeveloperExperience() {
                         Integrate with None of the Databases you have
                     </p>
                 </div>
-                <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
+                <div className="flex flex-col gap-3 max-md:text-center max-md:items-center md:border-[1px] md:p-8 md:rounded-lg">
                     <div className={iconBox()}>
                         <LayoutDashboardIcon />
                     </div>
@@ -324,15 +363,18 @@ function Develop() {
                         <BrainCircuitIcon className="absolute -right-5 -bottom-5 rounded-full shadow-xl shadow-purple-400/50 p-2 w-20 h-20 text-purple-400 bg-background" />
                     </div>
                     <div className="flex flex-col gap-3 max-md:text-center max-md:items-center">
+                        <CodeIcon className="w-14 h-14 border-2 border-border shadow-lg shadow-purple-400/50 bg-secondary rounded-2xl p-3 text-purple-400" />
+
                         <h3 className="text-xl font-semibold">
-                            100% Faster by losing your job
+                            100% Faster Performance
                         </h3>
                         <p className="text-muted-foreground max-w-xl">
                             Free developers from time-consuming jobs, your job
                             is no longer exists so that you can spend your time
                             on something meaningful
                         </p>
-                        <h3 className="text-xl font-semibold mt-6">
+                        <BrainCircuitIcon className="w-14 h-14 border-2 border-border shadow-lg shadow-purple-400/50 bg-secondary rounded-2xl p-3 text-purple-400 mt-6" />
+                        <h3 className="text-xl font-semibold">
                             No Move and Break Nothing
                         </h3>
                         <p className="text-muted-foreground max-w-xl">
@@ -342,7 +384,7 @@ function Develop() {
                     </div>
                 </div>
             </div>
-            <div className="p-8 sm:px-14 xl:px-24 flex flex-col items-center text-center gap-3 bg-gradient-to-b from-transparent to-purple-400/40 min-h-[300px] mt-16">
+            <div className="p-8 sm:px-14 xl:px-24 flex flex-col items-center text-center gap-3 bg-gradient-to-b from-transparent to-purple-400/40 min-h-[300px] mt-20">
                 <h3 className="text-xl md:text-2xl font-bold">No-Deploy CLI</h3>
                 <p className="text-muted-foreground drop-shadow-xl">
                     Connect to your project, database and integrated services,
