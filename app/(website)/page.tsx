@@ -522,9 +522,14 @@ function Hero() {
                         Try Now
                     </button>
                 </Link>
-                <Link href="/pricing">
-                    <button className="px-6 py-2 rounded-md bg-background border-2 border-purple-100 shadow-xl shadow-purple-400/50 text-sm md:text-base text-foreground font-semibold">
-                        {`Pricing ->`}
+                <Link href="/docs">
+                    <button
+                        className={clsx(
+                            "px-6 py-2 rounded-md bg-background border-2 border-purple-100 shadow-xl shadow-purple-400/50 text-sm md:text-base text-foreground font-semibold",
+                            "dark:text-white"
+                        )}
+                    >
+                        {`Learn More ->`}
                     </button>
                 </Link>
             </div>
