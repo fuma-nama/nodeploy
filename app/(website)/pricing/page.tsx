@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 
 export default function PricingPage() {
     return (
-        <div className="flex flex-col p-8 sm:p-14 xl:p-24 mb-20">
+        <div className="flex flex-col p-8 py-16 sm:px-14 xl:p-24 mb-20">
             <Content />
         </div>
     );
@@ -122,7 +122,7 @@ function Content() {
                 </Card>
             </div>
 
-            <h2 className="mt-6 text-2xl font-bold">FAQ</h2>
+            <h2 className="mt-12 text-2xl font-bold">FAQ</h2>
             <Accordion type="single" collapsible>
                 <AccordionItem value="money">
                     <AccordionTrigger>

@@ -20,8 +20,10 @@ export function Navbar() {
             <div className="flex flex-row gap-12 items-center text-sm max-lg:hidden">
                 <Item href="/docs">Docs</Item>
                 <Item href="/pricing">Pricing</Item>
-                <Item href="https://youtu.be/dQw4w9WgXcQ">Blog</Item>
-                <Item href="https://youtu.be/dQw4w9WgXcQ">Showcase</Item>
+                <Item href="/blog">Blog</Item>
+                <Item href="https://github.com/SonMooSans/nodeploy" external>
+                    Github
+                </Item>
             </div>
             <div className="flex flex-row justify-end ml-auto">
                 <Image
@@ -36,12 +38,22 @@ export function Navbar() {
     );
 }
 
-function Item({ href, children }: { href: string; children: string }) {
+function Item({
+    href,
+    external,
+    children,
+}: {
+    href: string;
+    external?: boolean;
+    children: string;
+}) {
     const pathname = usePathname();
 
     return (
         <Link
             href={href}
+            target={external ? "_blank" : "_self"}
+            rel={external ? "noreferrer" : ""}
             className={
                 pathname.startsWith(href)
                     ? "font-semibold text-foreground"

@@ -5,7 +5,7 @@ import rehypeSlug from "rehype-slug";
 
 export const Docs = defineDocumentType(() => ({
     name: "Docs",
-    filePathPattern: `**/*.mdx`,
+    filePathPattern: `docs/**/*.mdx`,
     contentType: "mdx",
     fields: {
         title: {
@@ -23,9 +23,60 @@ export const Docs = defineDocumentType(() => ({
         url: {
             type: "string",
             resolve: (post) => {
-                if (post._raw.flattenedPath.length === 0) return "/docs";
+                return "/" + post._raw.flattenedPath;
+            },
+        },
+        slug: {
+            type: "string",
+            resolve: (post) => {
+                return post._raw.flattenedPath.split("/").slice(1).join("/");
+            },
+        },
+    },
+}));
 
-                return `/docs/${post._raw.flattenedPath}`;
+export const Blog = defineDocumentType(() => ({
+    name: "Blog",
+    filePathPattern: "blog/*.mdx",
+    contentType: "mdx",
+    fields: {
+        title: {
+            type: "string",
+            description: "The title of the document",
+            required: true,
+        },
+        description: {
+            type: "string",
+            description: "The description of the document",
+            required: false,
+        },
+        date: {
+            type: "date",
+            description: "The release Date of the Post",
+            required: true,
+        },
+        image: {
+            type: "string",
+            description: "The image url (can be relative)",
+            required: true,
+        },
+        author: {
+            type: "string",
+            description: "The name of the author",
+            required: true,
+        },
+    },
+    computedFields: {
+        url: {
+            type: "string",
+            resolve: (blog) => {
+                return "/" + blog._raw.flattenedPath;
+            },
+        },
+        slug: {
+            type: "string",
+            resolve: (blog) => {
+                return blog._raw.flattenedPath.split("/").slice(1).join("/");
             },
         },
     },
@@ -33,7 +84,7 @@ export const Docs = defineDocumentType(() => ({
 
 export const Meta = defineDocumentType(() => ({
     name: "Meta",
-    filePathPattern: `**/meta.json`,
+    filePathPattern: `docs/**/meta.json`,
     contentType: "data",
     fields: {
         title: {
@@ -53,17 +104,14 @@ export const Meta = defineDocumentType(() => ({
     computedFields: {
         url: {
             type: "string",
-            resolve: (post) =>
-                post._raw.sourceFileDir === "."
-                    ? "/docs"
-                    : `/docs/${post._raw.sourceFileDir}`,
+            resolve: (post) => "/" + post._raw.sourceFileDir,
         },
     },
 }));
 
 export default makeSource({
-    contentDirPath: "docs",
-    documentTypes: [Docs, Meta],
+    contentDirPath: "content",
+    documentTypes: [Docs, Meta, Blog],
     mdx: {
         rehypePlugins: [
             [

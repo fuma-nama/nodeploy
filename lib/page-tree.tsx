@@ -1,7 +1,9 @@
 import { Meta, allMeta } from "@/.contentlayer/generated";
 import { TreeNode, buildPageTree } from "./generate-tree";
 
-const rootMeta = allMeta.find((meta) => meta._raw.flattenedPath === "meta")!;
+const rootMeta = allMeta.find(
+    (meta) => meta._raw.flattenedPath === "docs/meta"
+)!;
 
 declare global {
     var cached_meta: Meta | undefined;

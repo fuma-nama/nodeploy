@@ -1,6 +1,6 @@
 import { allDocs } from "contentlayer/generated";
 import { notFound } from "next/navigation";
-import { MdxContent } from "./mdx";
+import { MdxContent } from "@/components/mdx/mdx-content";
 import { Param } from "../layout";
 import type { Metadata } from "next";
 import { getTableOfContents } from "@/lib/get-toc";
@@ -11,7 +11,7 @@ import { absoluteUrl } from "@/lib/absolute-url";
 
 export default async function Page({ params }: { params: Param }) {
     const path = (params.slug ?? []).join("/");
-    const page = allDocs.find((page) => page._raw.flattenedPath === path);
+    const page = allDocs.find((page) => page.slug === path);
 
     if (page == null) {
         notFound();
@@ -25,9 +25,7 @@ export default async function Page({ params }: { params: Param }) {
             <article className="flex flex-col gap-6 py-8 lg:py-16">
                 <Breadcrumb tree={tree} />
                 <h1 className="text-4xl font-bold">{page.title}</h1>
-                <div className="prose prose-text prose-pre:grid prose-pre:border-[1px] prose-code:bg-secondary prose-code:p-1 max-w-none">
-                    <MdxContent docs={page} />
-                </div>
+                <MdxContent code={page.body.code} />
             </article>
             <div className="relative flex flex-col gap-3 max-xl:hidden py-16">
                 <div className="sticky top-28 flex flex-col gap-3 overflow-auto max-h-[calc(100vh-4rem-3rem)]">
@@ -43,7 +41,7 @@ export default async function Page({ params }: { params: Param }) {
 
 export function generateMetadata({ params }: { params: Param }): Metadata {
     const path = (params.slug ?? []).join("/");
-    const page = allDocs.find((page) => page._raw.flattenedPath === path);
+    const page = allDocs.find((page) => page.slug === path);
 
     if (page == null) return {};
 
@@ -73,6 +71,6 @@ export function generateMetadata({ params }: { params: Param }): Metadata {
 
 export async function generateStaticParams(): Promise<Param[]> {
     return allDocs.map((docs) => ({
-        slug: docs._raw.flattenedPath.split("/"),
+        slug: docs.slug.split("/"),
     }));
 }
