@@ -1,9 +1,13 @@
-import { defineDocumentType, makeSource } from "contentlayer/source-files";
+import {
+    defineDocumentType,
+    defineNestedType,
+    makeSource,
+} from "contentlayer/source-files";
 import rehypePrettycode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 
-export const Docs = defineDocumentType(() => ({
+const Docs = defineDocumentType(() => ({
     name: "Docs",
     filePathPattern: `docs/**/*.mdx`,
     contentType: "mdx",
@@ -35,7 +39,34 @@ export const Docs = defineDocumentType(() => ({
     },
 }));
 
-export const Blog = defineDocumentType(() => ({
+const Meta = defineDocumentType(() => ({
+    name: "Meta",
+    filePathPattern: `docs/**/meta.json`,
+    contentType: "data",
+    fields: {
+        title: {
+            type: "string",
+            description: "The title of the folder",
+            required: false,
+        },
+        pages: {
+            type: "list",
+            of: {
+                type: "string",
+            },
+            description: "Pages of the folder",
+            default: [],
+        },
+    },
+    computedFields: {
+        url: {
+            type: "string",
+            resolve: (post) => "/" + post._raw.sourceFileDir,
+        },
+    },
+}));
+
+const Blog = defineDocumentType(() => ({
     name: "Blog",
     filePathPattern: "blog/*.mdx",
     contentType: "mdx",
@@ -82,36 +113,32 @@ export const Blog = defineDocumentType(() => ({
     },
 }));
 
-export const Meta = defineDocumentType(() => ({
-    name: "Meta",
-    filePathPattern: `docs/**/meta.json`,
+const Author = defineNestedType(() => ({
+    name: "Author",
+    fields: {
+        name: { type: "string", required: true },
+        title: { type: "string", required: true },
+        icon: { type: "string", required: true },
+    },
+}));
+
+const BlogMeta = defineDocumentType(() => ({
+    name: "BlogMeta",
+    filePathPattern: "blog/meta.json",
     contentType: "data",
     fields: {
-        title: {
-            type: "string",
-            description: "The title of the folder",
-            required: false,
-        },
-        pages: {
+        authors: {
             type: "list",
-            of: {
-                type: "string",
-            },
-            description: "Pages of the folder",
-            default: [],
+            of: Author,
+            required: true,
         },
     },
-    computedFields: {
-        url: {
-            type: "string",
-            resolve: (post) => "/" + post._raw.sourceFileDir,
-        },
-    },
+    isSingleton: true,
 }));
 
 export default makeSource({
     contentDirPath: "content",
-    documentTypes: [Docs, Meta, Blog],
+    documentTypes: [Docs, Meta, Blog, BlogMeta],
     mdx: {
         rehypePlugins: [
             [
