@@ -1,8 +1,33 @@
+import { absoluteUrl } from "@/lib/absolute-url";
 import clsx from "clsx";
 import { Blog, allBlogs } from "contentlayer/generated";
 import { CalendarIcon, EditIcon } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+    title: "Blog",
+    description:
+        "The Blog posts written by No Deploy Team developers and our community",
+    openGraph: {
+        title: "Blog",
+        description:
+            "The Blog posts written by No Deploy Team developers and our community",
+        url: "https://nodeploy-neon.vercel.app",
+        images: "/banner.png",
+        siteName: "No Deploy",
+    },
+    twitter: {
+        title: "Blog",
+        description:
+            "The Blog posts written by No Deploy Team developers and our community",
+        card: "summary_large_image",
+        creator: "@money_is_shark",
+        images: "/banner.png",
+    },
+    metadataBase: absoluteUrl(),
+};
 
 export default function BlogsListPage() {
     const blogs = allBlogs.sort((a, b) =>
@@ -14,7 +39,7 @@ export default function BlogsListPage() {
             <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-purple-200/50 to-transparent dark:from-purple-800/50 dark:to-transparent -z-[1]" />
             <h1 className="text-4xl font-bold">Our Blog.</h1>
             <p className="text-muted-foreground">
-                High-quality posts written by great developers ant community
+                High-quality posts written by great developers and community
             </p>
 
             <div className="flex flex-col gap-8 mt-12">

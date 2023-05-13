@@ -1,7 +1,9 @@
 import { MdxContent } from "@/components/mdx/mdx-content";
+import { absoluteUrl } from "@/lib/absolute-url";
 import { getTableOfContents } from "@/lib/get-toc";
 import { allBlogs } from "contentlayer/generated";
 import { CalendarIcon, EditIcon } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -54,4 +56,36 @@ export function generateStaticParams(): Params[] {
     return allBlogs.map((blog) => ({
         slug: blog.slug,
     }));
+}
+
+export function generateMetadata({ params }: { params: Params }): Metadata {
+    const page = allBlogs.find((blog) => blog.slug === params.slug);
+
+    if (page == null) return {};
+
+    const description =
+        page.description ??
+        "The Blog posts written by No Deploy Team developers and our community";
+    return {
+        title: page.title,
+        description,
+        openGraph: {
+            title: page.title,
+            description,
+            authors: page.author,
+            publishedTime: page.date,
+            url: "https://nodeploy-neon.vercel.app",
+            images: page.image,
+            type: "article",
+            siteName: "No Deploy",
+        },
+        twitter: {
+            title: page.title,
+            description,
+            card: "summary_large_image",
+            creator: "@money_is_shark",
+            images: page.image,
+        },
+        metadataBase: absoluteUrl(),
+    };
 }
