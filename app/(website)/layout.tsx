@@ -62,11 +62,10 @@ function Footer() {
                         Pricing
                     </Link>
                     <Link
-                        href="https://youtu.be/dQw4w9WgXcQ"
-                        target="_blank"
+                        href="/blog"
                         className="text-sm text-muted-foreground"
                     >
-                        Integrations
+                        Blog
                     </Link>
                 </div>
                 <div className="flex flex-col gap-3">
