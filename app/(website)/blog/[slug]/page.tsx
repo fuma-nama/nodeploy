@@ -1,6 +1,6 @@
 import { MdxContent } from "@/components/mdx/mdx-content";
 import { absoluteUrl } from "@/lib/absolute-url";
-import { getTableOfContents } from "@/lib/get-toc";
+import { Item, TableOfContents, getTableOfContents } from "@/lib/get-toc";
 import { allBlogs } from "contentlayer/generated";
 import { CalendarIcon, EditIcon } from "lucide-react";
 import { Metadata } from "next";
@@ -37,18 +37,36 @@ export default async function BlogPage({ params }: { params: Params }) {
                 <EditIcon className="ml-4 w-4 h-4 text-purple-400" />
                 <p>{page.author}</p>
             </div>
-            {toc.length > 0 && (
-                <div className="p-8 border-[1px] bg-secondary text-secondary-foreground rounded-xl">
-                    {toc.map((item, i) => (
-                        <a key={i} href={item.url}>
-                            {item.title}
-                        </a>
-                    ))}
-                </div>
-            )}
+            {toc.length > 0 && <TOC toc={toc} />}
 
             <MdxContent code={page.body.code} />
         </article>
+    );
+}
+
+function TOC({ toc }: { toc: TableOfContents }) {
+    return (
+        <div className="p-4 border-[1px] bg-secondary text-secondary-foreground rounded-xl flex flex-col gap-4">
+            <p className="text-sm text-muted-foreground">Table of Content</p>
+            <ul className="space-y-2 font-semibold list-inside list-disc marker:text-xl marker:text-muted-foreground">
+                {toc.map((item, i) => (
+                    <TOCItem key={i} item={item} />
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+function TOCItem({ item }: { item: Item }) {
+    return (
+        <li>
+            <a href={item.url}>{item.title}</a>
+            <ol className="text-sm font-normal space-y-2 ml-8 list-inside list-disc marker:text-sm">
+                {item.items?.map((item, i) => (
+                    <TOCItem key={i} item={item} />
+                ))}
+            </ol>
+        </li>
     );
 }
 
