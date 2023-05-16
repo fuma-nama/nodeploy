@@ -1,4 +1,4 @@
 {
     "title": "Docs",
-    "pages": ["index", "frameworks", "---Guide---", "vercel"]
+    "pages": ["index", "frameworks", "---Guide---", "vercel", "cli"]
 }
