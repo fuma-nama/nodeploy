@@ -64,7 +64,7 @@ const iconBox = cva([
 export default function Home() {
     return (
         <>
-            <div className="relative flex flex-col justify-center overflow-hidden max-w-wide w-full mx-auto z-[2] p-8 sm:p-14 xl:p-24 min-h-[75vh]">
+            <div className="relative flex flex-col justify-center overflow-hidden max-w-wide w-full mx-auto z-[2] p-8 sm:p-14 xl:p-24 !pr-0 min-h-[75vh]">
                 <Hero />
                 <Image
                     alt="image"
