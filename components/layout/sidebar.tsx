@@ -52,6 +52,7 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
         window.addEventListener("keydown", handler);
 
         return () => {
+            document.body.classList.remove("max-lg:overflow-hidden");
             window.removeEventListener("keydown", handler);
         };
     }, []);
