@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { Docs } from "contentlayer/generated";
 import { LinkIcon } from "lucide-react";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import Link from "next/link";
